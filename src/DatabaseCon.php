@@ -1,5 +1,5 @@
 <?php
-
+namespace Cheatze\Library;
 
 class DatabaseCon
 {

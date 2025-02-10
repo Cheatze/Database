@@ -1,4 +1,6 @@
 <?php
+namespace Cheatze\Library;
+
 
 //also add a delete method
 
