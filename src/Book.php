@@ -71,4 +71,17 @@ class Book
         return $this->pageCount;
     }
 
+    //Add a toarray function that returns a associative array
+    public function toArray()
+    {
+        return [
+            'Title' => $this->getTitle(),
+            'Author_id' => $this->author->getId(),
+            'ISBN' => $this->getIsbn(),
+            'Publisher' => $this->getPublisher(),
+            'PublicationDate' => $this->getPublicationDateAsString(),
+            'PageCount' => $this->getPagecount()
+        ];
+    }
+
 }

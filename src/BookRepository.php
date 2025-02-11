@@ -9,6 +9,13 @@ namespace Cheatze\Library;
 class BookRepository
 {
 
+    private QueryBuilder $queryBuilder;
+
+    public function __construct()
+    {
+        $this->queryBuilder = new QueryBuilder('book');
+    }
+
     /**
      * Add the given book object to the session array
      * @param Book $newBook

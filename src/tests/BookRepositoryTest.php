@@ -7,6 +7,8 @@ use Cheatze\Library\Router;
 use Cheatze\Library\BookRepository;
 use Cheatze\Library\BookController;
 use Cheatze\Library\MainController;
+use Cheatze\Library\DatabaseCon;
+use Cheatze\Library\QueryBuilder;
 
 //use \DateTimeImmutable;
 use function PHPUnit\Framework\assertEquals;
@@ -82,6 +84,16 @@ class BookRepositoryTest extends TestCase
         BookController::delete(1);
         $booly = BookRepository::checkForId(1);
         assertEquals(false, $booly, 'Book with id 1 still exists');
+    }
+
+    public function testDatabaseConMethods()
+    {
+        $db = DatabaseCon::getInstance();
+        $sql = 'INSERT INTO books';
+        $values = ['title' => 'Harry Potter', 'Author_id' => 1, 'ISBN' => 9780747532743, 'Publisher_id' => 1, 'PublicationDate' => '1999-06-26', 'PageCount' => 300];
+
+        $db->insert($sql, $values);
+        assertEquals(2, $db->insert($sql, $values), 'Different id returned than expected.');
     }
 
 }

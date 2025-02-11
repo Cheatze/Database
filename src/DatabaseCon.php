@@ -96,8 +96,9 @@ class DatabaseCon
     }
 
     //make a delete method
-    public function delete($sql, $where)
+    public function delete(string $sql, array $where)
     {
-        //
+        $statement = $this->db->prepare($sql);
+        return $statement->execute($where);
     }
 }

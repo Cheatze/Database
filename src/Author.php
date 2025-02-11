@@ -43,4 +43,13 @@ class Author
     {
         return $this->birthDate->format("Y-m-d");
     }
+
+    public function toArray()
+    {
+        return [
+            'Firstname' => $this->getFirstName(),
+            'Lastname' => $this->getLastName(),
+            'Birthdate' => $this->getDateOfBirthAsString()
+        ];
+    }
 }

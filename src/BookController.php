@@ -3,6 +3,11 @@ namespace Cheatze\Library;
 use \DateTimeImmutable;
 class BookController
 {
+    //add BookRepository as an attribute and instantiate it in a constructor
+    //And make the methods nolonger static
+    //And changed where they're called?
+    //The way these are all called in the router is static and I don't think that has to be chagned
+
     /**
      * Assigns the books session variable array to $books through the repository and includes index.html
      * @return void
