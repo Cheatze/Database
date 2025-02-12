@@ -9,11 +9,11 @@ namespace Cheatze\Library;
 class BookRepository
 {
 
-    private QueryBuilder $queryBuilder;
+    private static QueryBuilder $queryBuilder;
 
     public function __construct()
     {
-        $this->queryBuilder = new QueryBuilder('book');
+        static::$queryBuilder = new QueryBuilder(Book::class);
     }
 
     /**
@@ -23,6 +23,9 @@ class BookRepository
      */
     public static function add(Book $newBook)
     {
+        $keyValuePairs = $newBook->toArray();
+        $keyValuePairs['Publisher_id'] = 1;
+        self::$queryBuilder->insert($keyValuePairs);
         $_SESSION['books'][] = $newBook;
         $_SESSION['id'] += 1;
     }

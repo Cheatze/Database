@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
 use Cheatze\Library\Book;
 use Cheatze\Library\Author;

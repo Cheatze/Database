@@ -1,5 +1,6 @@
 <?php
 namespace Cheatze\Library;
+use PDO;
 
 class DatabaseCon
 {
