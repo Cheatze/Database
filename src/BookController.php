@@ -4,12 +4,12 @@ use \DateTimeImmutable;
 class BookController
 {
     //add BookRepository as an attribute and instantiate it in a constructor
-    private static BookRepository $bookRepository;
+    // private static BookRepository $bookRepository;
 
-    public function __construct()
-    {
-        static::$bookRepository = new BookRepository();
-    }
+    // public function __construct()
+    // {
+    //     static::$bookRepository = new BookRepository();
+    // }
 
     /**
      * Assigns the books session variable array to $books through the repository and includes index.html

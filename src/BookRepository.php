@@ -9,12 +9,12 @@ namespace Cheatze\Library;
 class BookRepository
 {
 
-    private static QueryBuilder $queryBuilder;
+    private static QueryBuilder $queryBuilder = new QueryBuilder(Book::class);
 
-    public function __construct()
-    {
-        static::$queryBuilder = new QueryBuilder(Book::class);
-    }
+    // public function __construct()
+    // {
+    //     static::$queryBuilder = new QueryBuilder(Book::class);
+    // }
 
     /**
      * Add the given book object to the session array
