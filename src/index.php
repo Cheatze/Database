@@ -23,4 +23,4 @@ if (!isset($_SESSION['books'])) {
 $router = new Router();
 
 $router->processRoute();
-session_destroy(); // empty session for testing
+//session_destroy(); // empty session for testing

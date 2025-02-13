@@ -1,24 +1,34 @@
 <?php
 namespace Cheatze\Library;
+use Cheatze\Library\MainController;
 use \DateTimeImmutable;
+
 class BookController
 {
-    //add BookRepository as an attribute and instantiate it in a constructor
-    // private static BookRepository $bookRepository;
 
-    // public function __construct()
-    // {
-    //     static::$bookRepository = new BookRepository();
-    // }
+    public $repository;// = new BookRepository();
+    public $main;// = new MainController();
+
+    //$repos = BookRepository::getObject();
+    //add BookRepository as an attribute and instantiate it in a constructor
+    //private BookRepository $bookRepository;
+
+    public function __construct()
+    {
+        $this->repository = new BookRepository();
+        $this->main = new MainController();
+    }
 
     /**
      * Assigns the books session variable array to $books through the repository and includes index.html
      * @return void
      */
-    public static function index()
+    public function index()
     {
+        //$repos = BookRepository::getObject();
         if (isset($_SESSION['books'])) {
-            $books = BookRepository::getAll();
+            //$books = BookRepository::getAll();
+            $books = $this->repository->getAll();
         } else {
             $books = [];
         }
@@ -30,9 +40,10 @@ class BookController
      * @param int $id
      * @return void
      */
-    public static function show(int $id)
+    public function show(int $id)
     {
-        $book = BookRepository::returnById($id);
+        //$book = BookRepository::returnById($id);
+        $book = $this->repository->returnById($id);
         include_once 'html/book.html';
 
     }
@@ -41,11 +52,12 @@ class BookController
      *Removes the book with post id value from the session through the repository and calls the index method
      * @return void
      */
-    public static function delete($id)
+    public function delete($id)
     {
         //$id = $_POST["id"];
         $id = intval($id);
-        BookRepository::removeById($id);
+        //BookRepository::removeById($id);
+        $this->repository->removeById($id);
         BookController::index();
     }
 
@@ -53,7 +65,7 @@ class BookController
      * Assings the session authors array to $authors and includes the auhtor.html
      * @return void
      */
-    public static function showAuthors()
+    public function showAuthors()
     {
         $authors = $_SESSION['authors'];
         include_once 'html/author.html';
@@ -64,9 +76,10 @@ class BookController
      * @param mixed $id
      * @return void
      */
-    public static function showByAuthor($id)
+    public function showByAuthor($id)
     {
-        $books = BookRepository::filterById($id);
+        //$books = BookRepository::filterById($id);
+        $books = $this->repository->filterById($id);
         include_once 'html/listByAuthor.html';
     }
 
@@ -74,7 +87,7 @@ class BookController
      * Includes the form for adding books
      * @return void
      */
-    public static function form()
+    public function form()
     {
         include_once 'html/form.html';
     }
@@ -85,7 +98,7 @@ class BookController
      * Calls the index method to return to the list of all books
      * @return void
      */
-    public static function add($data)
+    public function add($data)
     {
         //Change stuff here
         // Retrieve form data
@@ -108,7 +121,9 @@ class BookController
         // Create a new Book object, somehow always gives id of 1
         $newBook = new Book($bookTitle, $author, $isbn, $publisher, $publicationDate, $pageCount, $id);
 
-        BookRepository::add($newBook);
-        BookController::index();
+        //BookRepository::add($newBook);
+        $this->repository->add($newBook);
+        //BookController::index();
+        $this->index();
     }
 }

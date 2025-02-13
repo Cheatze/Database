@@ -9,11 +9,11 @@ namespace Cheatze\Library;
 class BookRepository
 {
 
-    private static QueryBuilder $queryBuilder = new QueryBuilder(Book::class);
+    // private QueryBuilder $queryBuilder;
 
     // public function __construct()
     // {
-    //     static::$queryBuilder = new QueryBuilder(Book::class);
+    //     $this->queryBuilder = new QueryBuilder(Book::class);
     // }
 
     /**
@@ -21,11 +21,11 @@ class BookRepository
      * @param Book $newBook
      * @return void
      */
-    public static function add(Book $newBook)
+    public function add(Book $newBook)
     {
-        $keyValuePairs = $newBook->toArray();
-        $keyValuePairs['Publisher_id'] = 1;
-        self::$queryBuilder->insert($keyValuePairs);
+        //$keyValuePairs = $newBook->toArray();
+        //$keyValuePairs['Publisher_id'] = 1;
+        //self::$queryBuilder->insert($keyValuePairs);
         $_SESSION['books'][] = $newBook;
         $_SESSION['id'] += 1;
     }
@@ -35,7 +35,7 @@ class BookRepository
      * @param none
      * @return array
      */
-    public static function getAll()
+    public function getAll()
     {
         $books = $_SESSION['books'];
         return $books;
@@ -46,7 +46,7 @@ class BookRepository
      * @param int $chosenAuthorId
      * @return array
      */
-    public static function filterById(int $chosenAuthorId)
+    public function filterById(int $chosenAuthorId)
     {
         $books = $_SESSION['books'];
         $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
@@ -60,7 +60,7 @@ class BookRepository
      * @param int $id
      * @return array
      */
-    public static function returnById(int $id)
+    public function returnById(int $id)
     {
         $books = $_SESSION['books'];
         foreach ($books as $book) {
@@ -75,7 +75,7 @@ class BookRepository
      * @param int $id
      * @return void
      */
-    public static function removeById(int $id)
+    public function removeById(int $id)
     {
         $books = $_SESSION['books'];
         foreach ($books as $index => $book) {
@@ -89,7 +89,7 @@ class BookRepository
 
     //Unused
     //Checks if a book exists at a certain index and returns bool
-    public static function checkForId(int $id)
+    public function checkForId(int $id)
     {
         $books = $_SESSION['books'];
         foreach ($books as $book) {
