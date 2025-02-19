@@ -64,12 +64,12 @@ class QueryBuilder
      */
     public function get()
     {
-        $sql = 'SELECT' . implode(', ', $this->select) . ' FROM ' . $this->table;
+        $sql = 'SELECT ' . implode(', ', $this->select) . ' FROM ' . $this->table;
         if ($this->where) {
             $sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
-            //$sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         }
-        return $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
+        //return $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
+        return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
     }
 
     /**
@@ -95,6 +95,14 @@ class QueryBuilder
         return $this->databaseCon->update($sql, array_merge(array_values($keyValuePairs), array_values($this->where)));
     }
 
-    //And a delete method
-
+    /**
+     * Removes a record from the database by ID
+     * @param int $id The ID of the record to delete
+     * @return bool
+     */
+    public function remove(int $id)
+    {
+        $sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        return $this->databaseCon->delete($sql, ['id' => $id]);
+    }
 }

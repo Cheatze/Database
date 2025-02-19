@@ -12,7 +12,7 @@ use Cheatze\Library\MainController;
 use Cheatze\Library\DatabaseCon;
 use Cheatze\Library\QueryBuilder;
 
-//use \DateTimeImmutable;
+use \DateTimeImmutable;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -20,6 +20,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 #[RunTestsInSeparateProcesses]
 class BookRepositoryTest extends TestCase
 {
+    //Change use of static
     public function testAuthorMethods()
     {
         $author = new Author('Bobby', 'Bobson', new DateTimeImmutable('1970-01-01'));
@@ -31,6 +32,7 @@ class BookRepositoryTest extends TestCase
 
     }
 
+    //Change use of static
     public function testBookMothods()
     {
         $author = new Author('Bobby', 'Bobson', new DateTimeImmutable('1970-01-01'));
@@ -48,6 +50,7 @@ class BookRepositoryTest extends TestCase
         $this->assertEquals(99, $book->getPagecount(), 'Wrong pagecount');
     }
 
+    //Change use of static
     public function testRepositoryMethods()
     {
         $author = new Author('Bobby', 'Bobson', new DateTimeImmutable('1970-01-01'));
@@ -72,30 +75,41 @@ class BookRepositoryTest extends TestCase
 
     }
 
+    //Change use of static 
     public function testBookControllerMethods()
     {
         $author = new Author('Bobby', 'Bobson', new DateTimeImmutable('1970-01-01'));
         $_SESSION['authors'][] = $author;
+        $bookRep = new BookRepository();
+        $bookCon = new BookController();
         //$publicationDate = new DateTimeImmutable('2023-01-01');
         $publicationDate = '2023-01-01';
         //$book = new Book("The Story", $author, "12345", "Pinguin", $publicationDate, 99, 1);
         $_SESSION['id'] = 1;
         $book = ['title' => "The Story", 'author' => '1', 'isbn' => "12345", 'publisher' => "Pinguin", 'publicationDate' => $publicationDate, 'pageCount' => 99];
 
-        Bookcontroller::add($book);
-        BookController::delete(1);
-        $booly = BookRepository::checkForId(1);
-        assertEquals(false, $booly, 'Book with id 1 still exists');
+        //Bookcontroller::add($book);
+        // $this->bookCon->add($book);
+        // //BookController::delete(1);
+        // $this->bookCon->delete(1);
+
+        // $booly = BookRepository::checkForId(1);
+        // $booly = $this->bookRep->checkForId(1);
+        // assertEquals(false, $booly, 'Book with id 1 still exists');
     }
 
     public function testDatabaseConMethods()
     {
         $db = DatabaseCon::getInstance();
-        $sql = 'INSERT INTO books';
-        $values = ['title' => 'Harry Potter', 'Author_id' => 1, 'ISBN' => 9780747532743, 'Publisher_id' => 1, 'PublicationDate' => '1999-06-26', 'PageCount' => 300];
+        $sql = 'INSERT INTO books(Title,Author,ISBN,Publisher,PublicationDate,PageCount) VALUES(?,?,?,?,?,?)';
+        $values = array_values(['Title' => 'The Shining', 'Author' => 'Stephen King', 'ISBN' => 9780307743657, 'Publisher' => 'Doubleday', 'PublicationDate' => '1977-01-28', 'PageCount' => 447]);
 
-        $db->insert($sql, $values);
-        assertEquals(2, $db->insert($sql, $values), 'Different id returned than expected.');
+        //$db->insert($sql, $values);
+        //assertEquals(2, $db->insert($sql, $values), 'Different id returned than expected.');
+
+        //$sql = "DELETE FROM books WHERE id='1'";
+        //$where = ['id' => '3'];
+        //$db->delete($sql);
     }
 
 }

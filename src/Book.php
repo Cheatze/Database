@@ -76,9 +76,9 @@ class Book
     {
         return [
             'Title' => $this->getTitle(),
-            'Author_id' => $this->author->getId(),
+            'Author' => $this->author->getName(),
             'ISBN' => $this->getIsbn(),
-            'Publisher_id' => $this->getPublisher(),
+            'Publisher' => $this->getPublisher(),
             'PublicationDate' => $this->getPublicationDateAsString(),
             'PageCount' => $this->getPagecount()
         ];

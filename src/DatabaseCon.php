@@ -76,7 +76,7 @@ class DatabaseCon
     {
         $statement = $this->db->prepare($sql);
         $statement->execute($where);
-        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $className);
+        //$statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $className);
         $result = $statement->fetchAll();
         if (empty($result)) {
             return null;
@@ -96,10 +96,11 @@ class DatabaseCon
         return $statement->execute($values);
     }
 
-    //make a delete method
-    public function delete(string $sql, array $where)
+    //make a delete method?
+    //no $where argument? this is the same as update now?
+    public function delete(string $sql, array $values)
     {
         $statement = $this->db->prepare($sql);
-        return $statement->execute($where);
+        return $statement->execute($values);
     }
 }

@@ -9,12 +9,12 @@ namespace Cheatze\Library;
 class BookRepository
 {
 
-    // private QueryBuilder $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
-    // public function __construct()
-    // {
-    //     $this->queryBuilder = new QueryBuilder(Book::class);
-    // }
+    public function __construct()
+    {
+        $this->queryBuilder = new QueryBuilder(Book::class);
+    }
 
     /**
      * Add the given book object to the session array
@@ -23,8 +23,10 @@ class BookRepository
      */
     public function add(Book $newBook)
     {
-        //$keyValuePairs = $newBook->toArray();
-        //$keyValuePairs['Publisher_id'] = 1;
+        $keyValuePairs = $newBook->toArray();
+        // foreach($_SESSION['authors'] as $author){
+        //     if($keyValuePairs[])
+        // }
         //self::$queryBuilder->insert($keyValuePairs);
         $_SESSION['books'][] = $newBook;
         $_SESSION['id'] += 1;
