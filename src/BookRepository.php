@@ -13,7 +13,7 @@ class BookRepository
 
     public function __construct()
     {
-        $this->queryBuilder = new QueryBuilder(Book::class);
+        $this->queryBuilder = new QueryBuilder(Book::class, 'books');
     }
 
     /**
@@ -28,6 +28,7 @@ class BookRepository
         //     if($keyValuePairs[])
         // }
         //self::$queryBuilder->insert($keyValuePairs);
+        $this->queryBuilder->insert($keyValuePairs);
         $_SESSION['books'][] = $newBook;
         $_SESSION['id'] += 1;
     }
@@ -39,7 +40,8 @@ class BookRepository
      */
     public function getAll()
     {
-        $books = $_SESSION['books'];
+        $books = $this->queryBuilder->select(['*'])->get();
+        //$books = $_SESSION['books'];
         return $books;
     }
 

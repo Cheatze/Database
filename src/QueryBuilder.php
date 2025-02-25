@@ -8,8 +8,8 @@ class QueryBuilder
 {
     private string $table;
     private DatabaseCon $databaseCon;
-    private array $select;
-    private array $where;
+    private array $select = ['*'];
+    private array $where = [];
     private string $className;
 
     /**
@@ -22,6 +22,7 @@ class QueryBuilder
     {
         $this->databaseCon = DatabaseCon::getInstance();
         $this->className = $className;
+        //$className = Cheatze\Library\Books
         $this->table = $table ?? strtolower($className) . 's';
     }
 
@@ -81,6 +82,7 @@ class QueryBuilder
     {
         $sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', array_keys($keyValuePairs)) . ') VALUES (' . implode(', ', array_map(fn($key) => ":$key", array_keys($keyValuePairs))) . ')';
         //$sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', array_keys($keyValuePairs)) . ') VALUES (' . implode(', ', array_map(fn($key) => ":$key", array_keys($keyValuePairs))) . ')';
+        echo $sql;
         return $this->databaseCon->insert($sql, array_values($keyValuePairs));
     }
 

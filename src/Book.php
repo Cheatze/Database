@@ -84,4 +84,25 @@ class Book
         ];
     }
 
+
+    public static function fromArray($data)
+    {
+        foreach ($_SESSION['authors'] as $author) {
+            if ($author->getName() == $data['Author']) {
+                $data['Author'] = $author;
+                break;
+            }
+        }
+        $data['PublicationDate'] = new DateTimeImmutable($data['PublicationDate']);
+        return new Book(
+            $data['Title'],
+            $data['Author'],
+            $data['ISBN'],
+            $data['Publisher'],
+            $data['PublicationDate'],
+            $data['PageCount'],
+            $data['Id']
+        );
+    }
+
 }
