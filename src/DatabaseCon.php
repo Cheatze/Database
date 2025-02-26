@@ -84,7 +84,7 @@ class DatabaseCon
         return $result;
     }
 
-    /**
+    /**Not yet used
      * Changes an entry in the database
      * @param string $sql the query to run
      * @param array $values the values for the query
