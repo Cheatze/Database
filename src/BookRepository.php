@@ -24,10 +24,7 @@ class BookRepository
     public function add(Book $newBook)
     {
         $keyValuePairs = $newBook->toArray();
-        // foreach($_SESSION['authors'] as $author){
-        //     if($keyValuePairs[])
-        // }
-        //self::$queryBuilder->insert($keyValuePairs);
+
         $this->queryBuilder->insert($keyValuePairs);
         $_SESSION['books'][] = $newBook;
         $_SESSION['id'] += 1;
@@ -52,7 +49,9 @@ class BookRepository
      */
     public function filterById(int $chosenAuthorId)
     {
-        $books = $_SESSION['books'];
+
+        $books = $this->queryBuilder->select(['*'])->get();
+
         $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
             return $book->getAuthor()->getId() === $chosenAuthorId;
         });
@@ -66,12 +65,10 @@ class BookRepository
      */
     public function returnById(int $id)
     {
-        $books = $_SESSION['books'];
-        foreach ($books as $book) {
-            if ($book->getid() == $id) {
-                return $book;
-            }
-        }
+        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
+
+        return $book[0];
+
     }
 
     /**
@@ -81,27 +78,29 @@ class BookRepository
      */
     public function removeById(int $id)
     {
-        $books = $_SESSION['books'];
-        foreach ($books as $index => $book) {
-            if ($book->getId() === $id) {
-                // Remove the object at this index
-                unset($_SESSION['books'][$index]);
-                break;
-            }
+
+        $result = $this->queryBuilder->remove($id);
+        if ($result) {
+            echo "User  deleted successfully.";
+        } else {
+            echo "Failed to delete user.";
         }
+
     }
 
-    //Unused
+    //Unused?
     //Checks if a book exists at a certain index and returns bool
     public function checkForId(int $id)
     {
-        $books = $_SESSION['books'];
-        foreach ($books as $book) {
-            if ($book->getId() === $id) {
-                return true;
-            }
+
+        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
+
+        if (!empty($book)) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 
 }

@@ -69,7 +69,6 @@ class QueryBuilder
         if ($this->where) {
             $sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         }
-        //return $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
         return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
     }
 
@@ -81,7 +80,7 @@ class QueryBuilder
     public function insert(array $keyValuePairs)
     {
         $sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', array_keys($keyValuePairs)) . ') VALUES (' . implode(', ', array_map(fn($key) => ":$key", array_keys($keyValuePairs))) . ')';
-        //$sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', array_keys($keyValuePairs)) . ') VALUES (' . implode(', ', array_map(fn($key) => ":$key", array_keys($keyValuePairs))) . ')';
+
         echo $sql;
         return $this->databaseCon->insert($sql, array_values($keyValuePairs));
     }
@@ -91,11 +90,24 @@ class QueryBuilder
      * @param mixed $keyValuePairs
      * @return bool
      */
-    public function update($keyValuePairs)
+    public function update(array $keyValuePairs)
     {
         $sql = 'UPDATE ' . $this->table . ' SET ' . implode(', ', array_map(fn($key) => "$key = :$key", array_keys($keyValuePairs))) . ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         return $this->databaseCon->update($sql, array_merge(array_values($keyValuePairs), array_values($this->where)));
     }
+
+    // /**
+    //  * Removes a record from the database by ID
+    //  * @param int $id The ID of the record to delete
+    //  * @return bool
+    //  */
+    // public function remove(array $id)
+    // {
+
+    //     $sql = 'DELETE FROM ' . $this->table . ' WHERE id = ?';
+    //     return $this->databaseCon->delete($sql, $id);
+
+    // }
 
     /**
      * Removes a record from the database by ID

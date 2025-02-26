@@ -96,8 +96,12 @@ class DatabaseCon
         return $statement->execute($values);
     }
 
-    //make a delete method?
-    //no $where argument? this is the same as update now?
+    /**
+     * Deletes a record from the database
+     * @param string $sql The SQL query to run
+     * @param array $values The values for the query
+     * @return bool
+     */
     public function delete(string $sql, array $values)
     {
         $statement = $this->db->prepare($sql);

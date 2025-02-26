@@ -85,6 +85,12 @@ class Book
     }
 
 
+    /**
+     * Creates a new Book object based on $data
+     * To be changed when the list of authors is stored somewhere else
+     * @param mixed $data
+     * @return Book
+     */
     public static function fromArray($data)
     {
         foreach ($_SESSION['authors'] as $author) {
