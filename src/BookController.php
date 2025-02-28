@@ -52,10 +52,10 @@ class BookController
      *Removes the book with post id value from the session through the repository and calls the index method
      * @return void
      */
-    public function delete($id)
+    public function delete(array $id)
     {
         //$id = $_POST["id"];
-        $id = intval($id);
+        $id = intval($id['id']);
         //BookRepository::removeById($id);
         $this->repository->removeById($id);
         BookController::index();
