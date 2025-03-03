@@ -11,13 +11,16 @@ class BookRepository
 
     private QueryBuilder $queryBuilder;
 
+    /**
+     * Instantiates the querybuilder with the book class and table
+     */
     public function __construct()
     {
         $this->queryBuilder = new QueryBuilder(Book::class, 'books');
     }
 
     /**
-     * Add the given book object to the session array
+     * Add the given book object to the database
      * @param Book $newBook
      * @return void
      */
@@ -26,8 +29,8 @@ class BookRepository
         $keyValuePairs = $newBook->toArray();
 
         $this->queryBuilder->insert($keyValuePairs);
-        $_SESSION['books'][] = $newBook;
-        $_SESSION['id'] += 1;
+        // $_SESSION['books'][] = $newBook;
+        // $_SESSION['id'] += 1;
     }
 
     /**
@@ -37,9 +40,9 @@ class BookRepository
      */
     public function getAll()
     {
-        $books = $this->queryBuilder->select(['*'])->get();
+        return $books = $this->queryBuilder->select(['*'])->get();
         //$books = $_SESSION['books'];
-        return $books;
+        // return $books;
     }
 
     /**
@@ -80,11 +83,11 @@ class BookRepository
     {
 
         $result = $this->queryBuilder->remove($id);
-        if ($result) {
-            echo "User  deleted successfully.";
-        } else {
-            echo "Failed to delete user.";
-        }
+        // if ($result) {
+        //     echo "User  deleted successfully.";
+        // } else {
+        //     echo "Failed to delete user.";
+        // }
 
     }
 

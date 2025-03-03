@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Magazine details</title>
+</head>
+
+<body>
+    <div>
+        <h3>
+            <?php echo $magazine->getTitle(); ?>
+        </h3>
+        <p><strong>Editor:</strong>
+            <?php echo $magazine->getEditor(); ?>
+        </p>
+        <p><strong>ISSN:</strong>
+            <?php echo $magazine->getIssn(); ?>
+        </p>
+        <p><strong>Publisher:</strong>
+            <?php echo $magazine->getPublisher(); ?>
+        </p>
+        <p><strong>Publication Date:</strong>
+            <?php echo $magazine->getPublicationDateAsString(); ?>
+        </p>
+        <p><strong>Occurrence:</strong>
+            <?php echo $magazine->getOccurrence(); ?>
+        </p>
+    </div><!--Delete button that calls the path to the remove method with the id of the current $book object-->
+    <form method="POST" action='../magazine' onsubmit="return confirm('Do you really want to delete this magazine?')">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="submit" value="Delete">
+    </form>
+    <a href="../menu">Back</a>
+</body>
+
+</html>
