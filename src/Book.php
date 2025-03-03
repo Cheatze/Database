@@ -4,7 +4,7 @@ use \DateTimeImmutable;
 use Cheatze\Library\Item;
 class Book extends Item
 {
-    private static int $count = 0;
+    //private static int $count = 0;
     // private int $id; //in item
     //private string $title; //in item
     private Author $author;
@@ -12,7 +12,7 @@ class Book extends Item
     private string $publisher;
 
     private DateTimeImmutable $publicationDate; //add type
-    private int $pageCount;
+    private int $pageCount; 
 
     public function __construct(string $title, Author $author, string $isbn, string $publsiher, DateTimeImmutable $publicationDate, int $pageCount, int $id)
     {
