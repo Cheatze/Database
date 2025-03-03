@@ -21,14 +21,12 @@ class BookController
      */
     public function index()
     {
-        //$repos = BookRepository::getObject();
         if (isset($_SESSION['books'])) {
-            //$books = BookRepository::getAll();
             $books = $this->repository->getAll();
         } else {
             $books = [];
         }
-        include_once 'html/index.html';
+        include_once 'html/bookindex.html';
     }
 
     /**
@@ -63,7 +61,7 @@ class BookController
     public function showAuthors()
     {
         $authors = $_SESSION['authors'];
-        include_once 'html/author.html';
+        include_once 'html/bookauthor.html';
     }
 
     /**
@@ -74,7 +72,7 @@ class BookController
     public function showByAuthor($id)
     {
         $books = $this->repository->filterById($id);
-        include_once 'html/listByAuthor.html';
+        include_once 'html/listByBookAuthor.html';
     }
 
     /**
@@ -83,7 +81,7 @@ class BookController
      */
     public function form()
     {
-        include_once 'html/form.html';
+        include_once 'html/bookform.html';
     }
 
     /**

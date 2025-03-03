@@ -7,7 +7,7 @@ class Magazine extends Item
 
 
     private string $editor;
-    private int $issn;
+    private string $issn;
     private string $publisher;
     private DateTimeImmutable $publicationDate;
     private string $occurrence; //Weekelijks maandelijks etc
@@ -16,12 +16,12 @@ class Magazine extends Item
      * Constructor, moet $id hier ook bij?
      * @param string $title
      * @param string $editor
-     * @param int $issn
+     * @param string $issn
      * @param string $publisher
      * @param \DateTimeImmutable $publicationDate
      * @param string $occurrence
      */
-    public function __construct(string $title, string $editor, int $issn, string $publisher, DateTimeImmutable $publicationDate, string $occurrence, int $id)
+    public function __construct(string $title, string $editor, string $issn, string $publisher, DateTimeImmutable $publicationDate, string $occurrence, int $id)
     {
         $this->title = $title;
         $this->editor = $editor;
