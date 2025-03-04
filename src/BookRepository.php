@@ -29,8 +29,6 @@ class BookRepository
         $keyValuePairs = $newBook->toArray();
 
         $this->queryBuilder->insert($keyValuePairs);
-        // $_SESSION['books'][] = $newBook;
-        // $_SESSION['id'] += 1;
     }
 
     /**
@@ -41,8 +39,6 @@ class BookRepository
     public function getAll()
     {
         return $books = $this->queryBuilder->select(['*'])->get();
-        //$books = $_SESSION['books'];
-        // return $books;
     }
 
     /**

@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Library Hall</title>
+</head>
+
+<body>
+    <h1>Library Hall</h1>
+    <p><b>Boardgame list</b></p>
+    <ul>
+        <?php if (empty($boardgames)): ?>
+        <li>There are no boardgames in the array.</li>
+        <?php else: ?>
+        <?php foreach ($boardgames as $key => $boardgame): ?>
+        <li>
+            <a href="boardgame/id=<?php echo $boardgame->getId(); ?>">
+                Id:
+                <?php echo $boardgame->getId(); ?>:
+                <?php echo $boardgame->getTitle(); ?> designed by:
+                <?php echo $boardgame->getDesigner(); ?>
+            </a>
+        </li>
+        <?php endforeach; ?>
+        <?php endif; ?>
+    </ul>
+</body>
+
+</html>

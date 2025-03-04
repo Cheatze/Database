@@ -81,7 +81,7 @@ class Magazine extends Item
         return new Magazine(
             $data['Title'],
             $data['Editor'],
-            $data['ISSN'],
+            $data['Issn'],
             $data['Publisher'],
             $data['PublicationDate'],
             $data['Occurrence'],

@@ -87,16 +87,23 @@ class Router
         ['get', 'menu', 'menu'],
         ['get', 'form', 'form'],
         ['post', 'add', 'add'],
+        ['get', 'magazineIndex', 'magazineIndex'],
+        ['get', 'magazine/:id', 'showMagazine'],
+        ['get', 'magazineForm', 'magazineForm'],
+        ['post', 'addMagazine', 'addMagazine'],
+        ['post', 'magazine', 'deleteMagazine'],
     ];
 
     private array $pathPieces;
     private BookController $bookController;
     private MainController $mainController;
+    private MagazineController $magazineController;
 
     public function __construct()
     {
         $this->bookController = new BookController();
         $this->mainController = new MainController();
+        $this->magazineController = new MagazineController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -112,14 +119,34 @@ class Router
         foreach ($this->routes as $route) {
             [$routeMethod, $routePath, $routeAction] = $route;
             if ($method === $routeMethod && $this->matchRoute($routePath)) {
+                if ($routeAction === "magazineIndex") {
+                    $this->magazineController->magazineIndex();
+                    return;
+                } elseif ($routeAction === "magazineForm") {
+                    $this->magazineController->magazineForm();
+                    return;
+                }
+
                 if (isset($this->pathPieces[1])) {
                     $string = $this->pathPieces[1];
                     preg_match('/\d+$/', $string, $matches);
                     $numbersAtEnd = $matches[0];
                     $id = (int) $numbersAtEnd;
 
+                    if ($routeAction === "showMagazine") {
+                        $this->magazineController->showMagazine($id);
+                        return;
+                    }
+
                     // Call the method on the BookController instance
                     $this->bookController->{$routeAction}($id);
+                    return;
+                }
+                if ($routeAction === "addMagazine") {
+                    $this->magazineController->addMagazine($_POST);
+                    return;
+                } elseif ($routeAction === "deleteMagazine") {
+                    $this->magazineController->deleteMagazine($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {
