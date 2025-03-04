@@ -21,7 +21,7 @@ class Magazine extends Item
      * @param \DateTimeImmutable $publicationDate
      * @param string $occurrence
      */
-    public function __construct(string $title, string $editor, string $issn, string $publisher, DateTimeImmutable $publicationDate, string $occurrence, int $id)
+    public function __construct(string $title, string $editor, string $issn, string $publisher, DateTimeImmutable $publicationDate, string $occurrence, int $id = 1)
     {
         $this->title = $title;
         $this->editor = $editor;

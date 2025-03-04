@@ -21,11 +21,11 @@ class BookController
      */
     public function index()
     {
-        if (isset($_SESSION['books'])) {
-            $books = $this->repository->getAll();
-        } else {
-            $books = [];
-        }
+        // if (isset($_SESSION['books'])) {
+        $books = $this->repository->getAll();
+        // } else {
+        //     $books = [];
+        // }
         include_once 'html/bookindex.html';
     }
 
