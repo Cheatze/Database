@@ -39,7 +39,16 @@ class BoardgameController
     public function addBoardgame($data)
     {
         $title = $data['title'];
-        $designer = $data['designer'];
-        
+        $designer = $data['Designer'];
+        $ean = $data["ean"];
+        $publisher = $data['publisher'];
+        $releaseDate = new DateTimeImmutable($data['releaseDate']);
+        $minPlayers = $data['minplayers'];
+        $maxPlayers = $data['maxplayers'];
+
+        $newBoardgame = new Boardgame($title, $designer, $ean, $publisher, $releaseDate, $minPlayers, $maxPlayers);
+
+        $this->repository->addBoardgame($newBoardgame);
+        $this->boardgameIndex();
     }
 }

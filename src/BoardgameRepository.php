@@ -18,7 +18,7 @@ class BoardgameRepository
      * @param \Cheatze\Library\Boardgame $newboardgame
      * @return void
      */
-    public function addMagazine(Boardgame $newboardgame)
+    public function addBoardgame(Boardgame $newboardgame)
     {
         $keyValuePairs = $newboardgame->toArray();
         $this->queryBuilder->insert($keyValuePairs);

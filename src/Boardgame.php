@@ -12,7 +12,7 @@ class Boardgame extends Item
     private int $minPlayers;
     private int $maxPlayers;
 
-    public function __construct(string $title, string $designer, int $ean, string $publisher, DateTimeImmutable $releaseDate, int $minPlayers, int $maxPlayers, int $id)
+    public function __construct(string $title, string $designer, int $ean, string $publisher, DateTimeImmutable $releaseDate, int $minPlayers, int $maxPlayers, int $id = 1)
     {
         $this->id = $id;
         $this->title = $title;
@@ -83,7 +83,7 @@ class Boardgame extends Item
             $data['ReleaseDate'],
             $data['MinPlayers'],
             $data['MaxPlayers'],
-            $data['Id']
+            $data['id']
         );
     }
 
