@@ -82,9 +82,10 @@ class BookRepository
 
     }
 
-    public function search()
-    {
 
+    public function search(string $search)
+    {
+        //Aanmaken
     }
 
 

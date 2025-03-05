@@ -97,6 +97,7 @@ class Router
         ['get', 'boardgameForm', 'boardgameForm'],
         ['post', 'addBoardgame', 'addBoardgame'],
         ['post', 'boardgame', 'deleteBoardgame'],
+        ['get', 'itemindex', 'showAllItems'],
     ];
 
     private array $pathPieces;
@@ -104,6 +105,7 @@ class Router
     private MainController $mainController;
     private MagazineController $magazineController;
     private BoardgameController $boardgameController;
+    private ItemController $itemController;
 
     public function __construct()
     {
@@ -111,6 +113,7 @@ class Router
         $this->mainController = new MainController();
         $this->magazineController = new MagazineController();
         $this->boardgameController = new BoardgameController();
+        $this->itemController = new ItemController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -137,6 +140,9 @@ class Router
                     return;
                 } elseif ($routeAction === "boardgameForm") {
                     $this->boardgameController->boardgameForm();
+                    return;
+                } elseif ($routeAction === "showAllItems") {
+                    $this->itemController->showAllItems();
                     return;
                 }
 
