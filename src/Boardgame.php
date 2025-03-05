@@ -83,12 +83,17 @@ class Boardgame extends Item
             $data['ReleaseDate'],
             $data['MinPlayers'],
             $data['MaxPlayers'],
-            $data['id']
+            $data['Id']
         );
     }
 
     public function getOverviewText()
     {
-
+        return sprintf(
+            "Title: %s, published by: %s, designed by: %s",
+            $this->getTitle(),
+            $this->getPublisher(),
+            $this->getDesigner()
+        );
     }
 }

@@ -91,6 +91,11 @@ class Magazine extends Item
 
     public function getOverviewText()
     {
-
+        return sprintf(
+            "Title: %s, published by: %s, edited by: %s",
+            $this->getTitle(),
+            $this->getPublisher(),
+            $this->getEditor()
+        );
     }
 }

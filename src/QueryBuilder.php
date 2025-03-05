@@ -59,7 +59,7 @@ class QueryBuilder
         return $this;
     }
 
-    /**
+    /**Change to handle a null return
      * Retrieves stuff from the database
      * @return array|null
      */

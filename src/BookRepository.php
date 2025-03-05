@@ -79,13 +79,14 @@ class BookRepository
     {
 
         $result = $this->queryBuilder->remove($id);
-        // if ($result) {
-        //     echo "User  deleted successfully.";
-        // } else {
-        //     echo "Failed to delete user.";
-        // }
 
     }
+
+    public function search()
+    {
+
+    }
+
 
     //Unused?
     //Checks if a book exists at a certain index and returns bool

@@ -1,0 +1,20 @@
+<html>
+
+<head>
+    <title>Item details</title>
+</head>
+
+<body>
+    <div>
+        <h3>
+            <?php echo $item->getOverviewText(); ?>
+        </h3>
+    </div><!--Delete button that calls the path to the remove method with the id of the current $book object-->
+    <form method="POST" action='../item' onsubmit="return confirm('Do you really want to delete this item?')">
+        <input type="hidden" name="id" value="<?php echo $item->getId(); ?>">
+        <input type="submit" value="Delete">
+    </form>
+    <a href="../menu">Back</a>
+</body>
+
+</html>

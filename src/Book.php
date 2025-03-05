@@ -12,7 +12,7 @@ class Book extends Item
     private string $publisher;
 
     private DateTimeImmutable $publicationDate; //add type
-    private int $pageCount; 
+    private int $pageCount;
 
     public function __construct(string $title, Author $author, string $isbn, string $publsiher, DateTimeImmutable $publicationDate, int $pageCount, int $id)
     {
@@ -116,7 +116,12 @@ class Book extends Item
 
     public function getOverviewText()
     {
-
+        return sprintf(
+            "Title: %s, published by: %s, written by: %s",
+            $this->getTitle(),
+            $this->getPublisher(),
+            $this->getAuthorName()
+        );
     }
 
 }

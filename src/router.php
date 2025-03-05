@@ -92,18 +92,25 @@ class Router
         ['get', 'magazineForm', 'magazineForm'],
         ['post', 'addMagazine', 'addMagazine'],
         ['post', 'magazine', 'deleteMagazine'],
+        ['get', 'boardgameIndex', 'boardgameIndex'],
+        ['get', 'boardgame/:id', 'showBoardgame'],
+        ['get', 'boardgameForm', 'boardgameForm'],
+        ['post', 'addBoardgame', 'addBoardgame'],
+        ['post', 'boardgame', 'deleteBoardgame'],
     ];
 
     private array $pathPieces;
     private BookController $bookController;
     private MainController $mainController;
     private MagazineController $magazineController;
+    private BoardgameController $boardgameController;
 
     public function __construct()
     {
         $this->bookController = new BookController();
         $this->mainController = new MainController();
         $this->magazineController = new MagazineController();
+        $this->boardgameController = new BoardgameController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -125,6 +132,12 @@ class Router
                 } elseif ($routeAction === "magazineForm") {
                     $this->magazineController->magazineForm();
                     return;
+                } elseif ($routeAction === "boardgameIndex") {
+                    $this->boardgameController->boardgameIndex();
+                    return;
+                } elseif ($routeAction === "boardgameForm") {
+                    $this->boardgameController->boardgameForm();
+                    return;
                 }
 
                 if (isset($this->pathPieces[1])) {
@@ -135,6 +148,9 @@ class Router
 
                     if ($routeAction === "showMagazine") {
                         $this->magazineController->showMagazine($id);
+                        return;
+                    } elseif ($routeAction === "showBoardgame") {
+                        $this->boardgameController->showBoardgame($id);
                         return;
                     }
 
@@ -147,6 +163,12 @@ class Router
                     return;
                 } elseif ($routeAction === "deleteMagazine") {
                     $this->magazineController->deleteMagazine($_POST);
+                    return;
+                } elseif ($routeAction === "addBoardgame") {
+                    $this->boardgameController->addBoardgame($_POST);
+                    return;
+                } elseif ($routeAction === "deleteBoardgame") {
+                    $this->boardgameController->deleteBoardgame($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {
