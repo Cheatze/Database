@@ -18,13 +18,17 @@ class ItemService
 
     public function getAllItems()
     {
-        //$items = [];
-        $items = $this->bookRepository->getAll();
-        $items += $this->magazineRepository->getAllMagazines();
-        $items += $this->boardgameRepository->getAllBoardgames();
+        $items = [];
+        $books = $this->bookRepository->getAll();
+        $magazines = $this->magazineRepository->getAllMagazines();
+        $boardgames = $this->boardgameRepository->getAllBoardgames();
+        $items = array_merge($items, $books, $magazines, $boardgames);
         return $items;
     }
 
-
+    public function searchAllItems($data){
+        $items = [];
+        
+    }
 
 }

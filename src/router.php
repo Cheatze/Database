@@ -98,6 +98,7 @@ class Router
         ['post', 'addBoardgame', 'addBoardgame'],
         ['post', 'boardgame', 'deleteBoardgame'],
         ['get', 'itemindex', 'showAllItems'],
+        ['get', 'itemsearch', 'itemSearchForm'],
     ];
 
     private array $pathPieces;
@@ -143,6 +144,9 @@ class Router
                     return;
                 } elseif ($routeAction === "showAllItems") {
                     $this->itemController->showAllItems();
+                    return;
+                } elseif ($routeAction === "itemSearchForm") {
+                    $this->itemController->itemSearchForm();
                     return;
                 }
 

@@ -83,9 +83,14 @@ class BookRepository
     }
 
 
-    public function search(string $search)
+    public function searchBooks(string $search)
     {
-        //Aanmaken
+        $books = [];
+        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
+        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+        $authors = $this->queryBuilder->select(['*'])->where(['Author' => $search])->get();
+        $books = array_merge($books, $titles, $publishers, $authors);
+        return $books;
     }
 
 
