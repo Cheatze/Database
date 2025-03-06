@@ -54,4 +54,19 @@ class MagazineRepository
     {
         $this->queryBuilder->remove($id);
     }
+
+    /**
+     * Searches the magazines database table on title publisher and editor and returns an array of results
+     * @param string $search
+     * @return array
+     */
+    public function searchMagazines(string $search)
+    {
+        $magazines = [];
+        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
+        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+        $editors = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+        $magazines = array_merge($magazines, $titles, $publishers, $editors);
+        return $magazines;
+    }
 }

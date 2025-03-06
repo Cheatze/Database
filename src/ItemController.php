@@ -36,4 +36,10 @@ class ItemController
     {
         include_once 'html/ItemSearch.html';
     }
+
+    public function itemSearch($data)
+    {
+        $items = $this->itemService->searchAllItems($data);
+        include_once 'html/itemindex.html';
+    }
 }

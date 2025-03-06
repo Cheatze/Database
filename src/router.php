@@ -99,6 +99,7 @@ class Router
         ['post', 'boardgame', 'deleteBoardgame'],
         ['get', 'itemindex', 'showAllItems'],
         ['get', 'itemsearch', 'itemSearchForm'],
+        ['post', 'search', 'itemSearch'],
     ];
 
     private array $pathPieces;
@@ -179,6 +180,9 @@ class Router
                     return;
                 } elseif ($routeAction === "deleteBoardgame") {
                     $this->boardgameController->deleteBoardgame($_POST);
+                    return;
+                } elseif ($routeAction === "itemSearch") {
+                    $this->itemController->itemSearch($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {

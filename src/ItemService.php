@@ -26,9 +26,17 @@ class ItemService
         return $items;
     }
 
-    public function searchAllItems($data){
+    public function searchAllItems($data)
+    {
+        $search = $data['item'];
         $items = [];
-        
+        $books = $this->bookRepository->searchBooks($search);
+        $magazines = $this->magazineRepository->searchMagazines($search);
+        $boardgames = $this->boardgameRepository->searchBoardgames($search);
+
+        $items = array_merge($items, $books, $magazines, $boardgames);
+        return $items;
+
     }
 
 }

@@ -82,7 +82,11 @@ class BookRepository
 
     }
 
-
+    /**
+     * Searches the books database table on title publisher and author and returns an array of results
+     * @param string $search
+     * @return array
+     */
     public function searchBooks(string $search)
     {
         $books = [];
