@@ -5,7 +5,6 @@ use \DateTimeImmutable;
 class BoardgameController
 {
     public BoardgameRepository $repository;
-    public BoardgameService $service;
 
     /**
      * Initialises the boardgame repository
@@ -13,7 +12,6 @@ class BoardgameController
     public function __construct()
     {
         $this->repository = new BoardgameRepository();
-        $this->service = new BoardgameService();
     }
 
     /**
@@ -22,7 +20,7 @@ class BoardgameController
      */
     public function boardgameIndex()
     {
-        $boardgames = $this->service->getAllBoardgames();
+        $boardgames = $this->repository->getAllBoardgames();
         include_once 'html/boardgameindex.html';
     }
 
@@ -33,7 +31,7 @@ class BoardgameController
      */
     public function showBoardgame(int $id)
     {
-        $boardgame = $this->service->getBoardgameById($id);
+        $boardgame = $this->repository->getBoardgameById($id);
         include_once 'html/Boardgame.html';
     }
 

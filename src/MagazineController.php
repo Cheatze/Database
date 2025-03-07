@@ -7,15 +7,12 @@ class MagazineController
 
     public MagazineRepository $repository;
 
-    public MagazineService $service;
-
     /**
      * Initialises the magazine repository
      */
     public function __construct()
     {
         $this->repository = new MagazineRepository();
-        $this->service = new MagazineService();
     }
 
     /**
@@ -24,7 +21,7 @@ class MagazineController
      */
     public function magazineIndex()
     {
-        $magazines = $this->service->getAllMagazines();
+        $magazines = $this->repository->getAllMagazines();
         include_once 'html/magazineindex.html';
     }
 
@@ -35,7 +32,7 @@ class MagazineController
      */
     public function showMagazine(int $id)
     {
-        $magazine = $this->service->returnMagazineById($id);
+        $magazine = $this->repository->returnMagazineById($id);
         include_once 'html/Magazine.html';
     }
 

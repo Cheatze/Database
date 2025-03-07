@@ -3,14 +3,14 @@ namespace Cheatze\Library;
 
 class BoardgameService
 {
-    private QueryBuilder $queryBuilder;
+    private BoardgameRepository $boardgameRepository;
 
     /**
      * Instantiates the querybuilder with the boardgame class and table
      */
     public function __construct()
     {
-        $this->queryBuilder = new QueryBuilder(Boardgame::class, 'boardgames');
+        $this->boardgameRepository = new BoardgameRepository();
     }
 
     /**
@@ -19,18 +19,7 @@ class BoardgameService
      */
     public function getAllBoardgames()
     {
-        return $boardgames = $this->queryBuilder->select(['*'])->get();
-    }
-
-    /**
-     * Gets one boardgame from the database with a certain id
-     * @param int $id
-     */
-    public function getBoardgameById(int $id)
-    {
-        $boardgame = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
-
-        return $boardgame[0];
+        return $boardgames = $this->boardgameRepository->getAllBoardgames();
     }
 
     /**
@@ -41,11 +30,7 @@ class BoardgameService
      */
     public function searchBoardgames(string $search)
     {
-        $boardgames = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['publisher' => $search])->get();
-        $designers = $this->queryBuilder->select(['*'])->where(['Designer' => $search])->get();
-        $boardgames = array_merge($boardgames, $titles, $publishers, $designers);
+        $boardgames = $this->boardgameRepository->searchBoardgames($search);
         return $boardgames;
     }
 }

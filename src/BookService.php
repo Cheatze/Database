@@ -3,14 +3,14 @@ namespace Cheatze\Library;
 
 class BookService
 {
-    private QueryBuilder $queryBuilder;
+    private BookRepository $bookRepository;
 
     /**
      * Instantiates the querybuilder with the book class and table
      */
     public function __construct()
     {
-        $this->queryBuilder = new QueryBuilder(Book::class, 'books');
+        $this->bookRepository = new BookRepository();
     }
 
     /**
@@ -20,35 +20,7 @@ class BookService
      */
     public function getAll()
     {
-        return $books = $this->queryBuilder->select(['*'])->get();
-    }
-
-    /**
-     * Filters the books array by author id and returns filtered array
-     * @param int $chosenAuthorId
-     * @return array
-     */
-    public function filterById(int $chosenAuthorId)
-    {
-        $books = $this->queryBuilder->select(['*'])->get();
-        $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
-            return $book->getAuthor()->getId() === $chosenAuthorId;
-        });
-        return $filteredBooks;
-
-    }
-
-    /**
-     * Returns a book with a certain id
-     * @param int $id
-     * @return array
-     */
-    public function returnById(int $id)
-    {
-        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
-
-        return $book[0];
-
+        return $books = $this->bookRepository->getAll();
     }
 
     /**
@@ -58,11 +30,7 @@ class BookService
      */
     public function searchBooks(string $search)
     {
-        $books = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
-        $authors = $this->queryBuilder->select(['*'])->where(['Author' => $search])->get();
-        $books = array_merge($books, $titles, $publishers, $authors);
+        $books = $this->bookRepository->searchBooks($search);
         return $books;
     }
 

@@ -6,14 +6,12 @@ use \DateTimeImmutable;
 class BookController
 {
 
-    public $repository;// = new BookRepository();
-    public BookService $service;
+    public BookRepository $repository;// = new BookRepository();
     public $main;// = new MainController();
 
     public function __construct()
     {
         $this->repository = new BookRepository();
-        $this->service = new BookService();
         $this->main = new MainController();
     }
 
@@ -24,7 +22,7 @@ class BookController
     public function index()
     {
         // if (isset($_SESSION['books'])) {
-        $books = $this->service->getAll();
+        $books = $this->repository->getAll();
         // } else {
         //     $books = [];
         // }
@@ -38,7 +36,7 @@ class BookController
      */
     public function show(int $id)
     {
-        $book = $this->service->returnById($id);
+        $book = $this->repository->returnById($id);
         include_once 'html/book.html';
 
     }
@@ -73,7 +71,7 @@ class BookController
      */
     public function showByAuthor($id)
     {
-        $books = $this->service->filterById($id);
+        $books = $this->repository->filterById($id);
         include_once 'html/listByAuthor.html';
     }
 

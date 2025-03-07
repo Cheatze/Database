@@ -24,25 +24,25 @@ class BoardgameRepository
         $this->queryBuilder->insert($keyValuePairs);
     }
 
-    // /**
-    //  * Gets all boardgames from the database
-    //  * @return array|null
-    //  */
-    // public function getAllBoardgames()
-    // {
-    //     return $boardgames = $this->queryBuilder->select(['*'])->get();
-    // }
+    /**
+     * Gets all boardgames from the database
+     * @return array|null
+     */
+    public function getAllBoardgames()
+    {
+        return $boardgames = $this->queryBuilder->select(['*'])->get();
+    }
 
-    // /**
-    //  * Gets one boardgame from the database with a certain id
-    //  * @param int $id
-    //  */
-    // public function getBoardgameById(int $id)
-    // {
-    //     $boardgame = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
+    /**
+     * Gets one boardgame from the database with a certain id
+     * @param int $id
+     */
+    public function getBoardgameById(int $id)
+    {
+        $boardgame = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
-    //     return $boardgame[0];
-    // }
+        return $boardgame[0];
+    }
 
     /**
      * Removes one boardgame from the database with a certain id
@@ -54,14 +54,14 @@ class BoardgameRepository
         $this->queryBuilder->remove($id);
     }
 
-    // public function searchBoardgames(string $search)
-    // {
-    //     $boardgames = [];
-    //     $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-    //     $publishers = $this->queryBuilder->select(['*'])->where(['publisher' => $search])->get();
-    //     $designers = $this->queryBuilder->select(['*'])->where(['Designer' => $search])->get();
-    //     $boardgames = array_merge($boardgames, $titles, $publishers, $designers);
-    //     return $boardgames;
-    // }
+    public function searchBoardgames(string $search)
+    {
+        $boardgames = [];
+        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
+        $publishers = $this->queryBuilder->select(['*'])->where(['publisher' => $search])->get();
+        $designers = $this->queryBuilder->select(['*'])->where(['Designer' => $search])->get();
+        $boardgames = array_merge($boardgames, $titles, $publishers, $designers);
+        return $boardgames;
+    }
 
 }
