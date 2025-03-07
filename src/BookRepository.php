@@ -31,44 +31,43 @@ class BookRepository
         $this->queryBuilder->insert($keyValuePairs);
     }
 
-    /**
-     * Returns an array copied from the session array
-     * @param none
-     * @return array
-     */
-    public function getAll()
-    {
-        return $books = $this->queryBuilder->select(['*'])->get();
-    }
+    // /**
+    //  * Returns an array copied from the session array
+    //  * @param none
+    //  * @return array
+    //  */
+    // public function getAll()
+    // {
+    //     return $books = $this->queryBuilder->select(['*'])->get();
+    // }
 
-    /**
-     * Filters the books session array by author id and returns filtered array
-     * @param int $chosenAuthorId
-     * @return array
-     */
-    public function filterById(int $chosenAuthorId)
-    {
+    // /**
+    //  * Filters the books array by author id and returns filtered array
+    //  * @param int $chosenAuthorId
+    //  * @return array
+    //  */
+    // public function filterById(int $chosenAuthorId)
+    // {
+    //     $books = $this->queryBuilder->select(['*'])->get();
+    //     $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
+    //         return $book->getAuthor()->getId() === $chosenAuthorId;
+    //     });
+    //     return $filteredBooks;
 
-        $books = $this->queryBuilder->select(['*'])->get();
+    // }
 
-        $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
-            return $book->getAuthor()->getId() === $chosenAuthorId;
-        });
-        return $filteredBooks;
-    }
+    // /**
+    //  * Returns a book with a certain id
+    //  * @param int $id
+    //  * @return array
+    //  */
+    // public function returnById(int $id)
+    // {
+    //     $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
-    /**
-     * Returns a book with a certain id
-     * @param int $id
-     * @return array
-     */
-    public function returnById(int $id)
-    {
-        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
+    //     return $book[0];
 
-        return $book[0];
-
-    }
+    // }
 
     /**
      * Removes a book with a certain id from the session array
@@ -82,35 +81,35 @@ class BookRepository
 
     }
 
-    /**
-     * Searches the books database table on title publisher and author and returns an array of results
-     * @param string $search
-     * @return array
-     */
-    public function searchBooks(string $search)
-    {
-        $books = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
-        $authors = $this->queryBuilder->select(['*'])->where(['Author' => $search])->get();
-        $books = array_merge($books, $titles, $publishers, $authors);
-        return $books;
-    }
+    // /**
+    //  * Searches the books database table on title publisher and author and returns an array of results
+    //  * @param string $search
+    //  * @return array
+    //  */
+    // public function searchBooks(string $search)
+    // {
+    //     $books = [];
+    //     $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
+    //     $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+    //     $authors = $this->queryBuilder->select(['*'])->where(['Author' => $search])->get();
+    //     $books = array_merge($books, $titles, $publishers, $authors);
+    //     return $books;
+    // }
 
 
-    //Unused?
-    //Checks if a book exists at a certain index and returns bool
-    public function checkForId(int $id)
-    {
+    // //Unused?
+    // //Checks if a book exists at a certain index and returns bool
+    // public function checkForId(int $id)
+    // {
 
-        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
+    //     $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
-        if (!empty($book)) {
-            return true;
-        } else {
-            return false;
-        }
+    //     if (!empty($book)) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
 
-    }
+    // }
 
 }

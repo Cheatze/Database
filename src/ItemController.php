@@ -23,6 +23,7 @@ class ItemController
         include_once 'html/itemindex.html';
     }
 
+    //How?
     public function showItem(int $id)
     {
 
@@ -37,6 +38,11 @@ class ItemController
         include_once 'html/ItemSearch.html';
     }
 
+    /**
+     * Searches the books/magazines/boardgames database tables on the search term submitted
+     * @param mixed $data
+     * @return void
+     */
     public function itemSearch($data)
     {
         $items = $this->itemService->searchAllItems($data);

@@ -7,11 +7,13 @@ class BookController
 {
 
     public $repository;// = new BookRepository();
+    public BookService $service;
     public $main;// = new MainController();
 
     public function __construct()
     {
         $this->repository = new BookRepository();
+        $this->service = new BookService();
         $this->main = new MainController();
     }
 
@@ -22,7 +24,7 @@ class BookController
     public function index()
     {
         // if (isset($_SESSION['books'])) {
-        $books = $this->repository->getAll();
+        $books = $this->service->getAll();
         // } else {
         //     $books = [];
         // }
@@ -36,7 +38,7 @@ class BookController
      */
     public function show(int $id)
     {
-        $book = $this->repository->returnById($id);
+        $book = $this->service->returnById($id);
         include_once 'html/book.html';
 
     }
@@ -71,8 +73,8 @@ class BookController
      */
     public function showByAuthor($id)
     {
-        $books = $this->repository->filterById($id);
-        include_once 'html/listByBookAuthor.html';
+        $books = $this->service->filterById($id);
+        include_once 'html/listByAuthor.html';
     }
 
     /**
