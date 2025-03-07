@@ -87,16 +87,35 @@ class Router
         ['get', 'menu', 'menu'],
         ['get', 'form', 'form'],
         ['post', 'add', 'add'],
+        ['get', 'magazineIndex', 'magazineIndex'],
+        ['get', 'magazine/:id', 'showMagazine'],
+        ['get', 'magazineForm', 'magazineForm'],
+        ['post', 'addMagazine', 'addMagazine'],
+        ['post', 'magazine', 'deleteMagazine'],
+        ['get', 'boardgameIndex', 'boardgameIndex'],
+        ['get', 'boardgame/:id', 'showBoardgame'],
+        ['get', 'boardgameForm', 'boardgameForm'],
+        ['post', 'addBoardgame', 'addBoardgame'],
+        ['post', 'boardgame', 'deleteBoardgame'],
+        ['get', 'itemindex', 'showAllItems'],
+        ['get', 'itemsearch', 'itemSearchForm'],
+        ['post', 'search', 'itemSearch'],
     ];
 
     private array $pathPieces;
     private BookController $bookController;
     private MainController $mainController;
+    private MagazineController $magazineController;
+    private BoardgameController $boardgameController;
+    private ItemController $itemController;
 
     public function __construct()
     {
         $this->bookController = new BookController();
         $this->mainController = new MainController();
+        $this->magazineController = new MagazineController();
+        $this->boardgameController = new BoardgameController();
+        $this->itemController = new ItemController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -112,14 +131,58 @@ class Router
         foreach ($this->routes as $route) {
             [$routeMethod, $routePath, $routeAction] = $route;
             if ($method === $routeMethod && $this->matchRoute($routePath)) {
+                if ($routeAction === "magazineIndex") {
+                    $this->magazineController->magazineIndex();
+                    return;
+                } elseif ($routeAction === "magazineForm") {
+                    $this->magazineController->magazineForm();
+                    return;
+                } elseif ($routeAction === "boardgameIndex") {
+                    $this->boardgameController->boardgameIndex();
+                    return;
+                } elseif ($routeAction === "boardgameForm") {
+                    $this->boardgameController->boardgameForm();
+                    return;
+                } elseif ($routeAction === "showAllItems") {
+                    $this->itemController->showAllItems();
+                    return;
+                } elseif ($routeAction === "itemSearchForm") {
+                    $this->itemController->itemSearchForm();
+                    return;
+                }
+
                 if (isset($this->pathPieces[1])) {
                     $string = $this->pathPieces[1];
                     preg_match('/\d+$/', $string, $matches);
                     $numbersAtEnd = $matches[0];
                     $id = (int) $numbersAtEnd;
 
+                    if ($routeAction === "showMagazine") {
+                        $this->magazineController->showMagazine($id);
+                        return;
+                    } elseif ($routeAction === "showBoardgame") {
+                        $this->boardgameController->showBoardgame($id);
+                        return;
+                    }
+
                     // Call the method on the BookController instance
                     $this->bookController->{$routeAction}($id);
+                    return;
+                }
+                if ($routeAction === "addMagazine") {
+                    $this->magazineController->addMagazine($_POST);
+                    return;
+                } elseif ($routeAction === "deleteMagazine") {
+                    $this->magazineController->deleteMagazine($_POST);
+                    return;
+                } elseif ($routeAction === "addBoardgame") {
+                    $this->boardgameController->addBoardgame($_POST);
+                    return;
+                } elseif ($routeAction === "deleteBoardgame") {
+                    $this->boardgameController->deleteBoardgame($_POST);
+                    return;
+                } elseif ($routeAction === "itemSearch") {
+                    $this->itemController->itemSearch($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {

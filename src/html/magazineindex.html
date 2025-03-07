@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Library Hall</title>
+</head>
+
+<body>
+    <h1>Library Hall</h1>
+    <p><b>Magazine list</b></p>
+    <ul>
+        <?php if (empty($magazines)): ?>
+        <li>There are no magazines in the array.</li>
+        <?php else: ?>
+        <?php foreach ($magazines as $key => $magazine): ?>
+        <li>
+            <a href="magazine/id=<?php echo $magazine->getId(); ?>">
+                Id:
+                <?php echo $magazine->getId(); ?>:
+                <?php echo $magazine->getTitle(); ?> edited by:
+                <?php echo $magazine->getEditor(); ?>
+            </a>
+        </li>
+        <?php endforeach; ?>
+        <?php endif; ?>
+    </ul>
+</body>
+
+</html>

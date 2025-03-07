@@ -59,7 +59,7 @@ class QueryBuilder
         return $this;
     }
 
-    /**
+    /**Change to handle a null return
      * Retrieves stuff from the database
      * @return array|null
      */
@@ -69,7 +69,16 @@ class QueryBuilder
         if ($this->where) {
             $sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         }
-        return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
+        $result = $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
+        if ($result == null) {
+            return [];
+        } else {
+            return array_map(fn($item) => $this->className::fromArray($item), $result);
+
+        }
+
+        //return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
+
     }
 
     /**

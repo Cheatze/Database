@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>Boardgame details</title>
+</head>
+
+<body>
+    <div>
+        <h3>
+            <?php echo $boardgame->getTitle(); ?>
+        </h3>
+        <p><strong>Designer:</strong>
+            <?php echo $boardgame->getDesigner(); ?>
+        </p>
+        <p><strong>EAN:</strong>
+            <?php echo $boardgame->getEan(); ?>
+        </p>
+        <p><strong>Publisher:</strong>
+            <?php echo $boardgame->getPublisher(); ?>
+        </p>
+        <p><strong>Release Date:</strong>
+            <?php echo $boardgame->getReleaseDateAsString(); ?>
+        </p>
+        <p><strong>Minimum players:</strong>
+            <?php echo $boardgame->getMinPlayers(); ?>
+        </p>
+        <p><strong>Maximum players:</strong>
+            <?php echo $boardgame->getMaxPlayers(); ?>
+        </p>
+    </div><!--Delete button that calls the path to the remove method with the id of the current $boardgame object-->
+    <form method="POST" action='../boardgame' onsubmit="return confirm('Do you really want to delete this boardgame?')">
+        <input type="hidden" name="id" value="<?php echo $boardgame->getId(); ?>">
+        <input type="submit" value="Delete">
+    </form>
+    <a href="../menu">Back</a>
+</body>
+
+</html>

@@ -6,12 +6,8 @@ use \DateTimeImmutable;
 class BookController
 {
 
-    public $repository;// = new BookRepository();
+    public BookRepository $repository;// = new BookRepository();
     public $main;// = new MainController();
-
-    //$repos = BookRepository::getObject();
-    //add BookRepository as an attribute and instantiate it in a constructor
-    //private BookRepository $bookRepository;
 
     public function __construct()
     {
@@ -25,14 +21,12 @@ class BookController
      */
     public function index()
     {
-        //$repos = BookRepository::getObject();
-        if (isset($_SESSION['books'])) {
-            //$books = BookRepository::getAll();
-            $books = $this->repository->getAll();
-        } else {
-            $books = [];
-        }
-        include_once 'html/index.html';
+        // if (isset($_SESSION['books'])) {
+        $books = $this->repository->getAll();
+        // } else {
+        //     $books = [];
+        // }
+        include_once 'html/bookindex.html';
     }
 
     /**
@@ -42,7 +36,6 @@ class BookController
      */
     public function show(int $id)
     {
-        //$book = BookRepository::returnById($id);
         $book = $this->repository->returnById($id);
         include_once 'html/book.html';
 
@@ -54,9 +47,9 @@ class BookController
      */
     public function delete(array $id)
     {
-        //$id = $_POST["id"];
+
         $id = intval($id['id']);
-        //BookRepository::removeById($id);
+
         $this->repository->removeById($id);
         BookController::index();
     }
@@ -68,7 +61,7 @@ class BookController
     public function showAuthors()
     {
         $authors = $_SESSION['authors'];
-        include_once 'html/author.html';
+        include_once 'html/bookauthor.html';
     }
 
     /**
@@ -78,7 +71,6 @@ class BookController
      */
     public function showByAuthor($id)
     {
-        //$books = BookRepository::filterById($id);
         $books = $this->repository->filterById($id);
         include_once 'html/listByAuthor.html';
     }
@@ -89,7 +81,7 @@ class BookController
      */
     public function form()
     {
-        include_once 'html/form.html';
+        include_once 'html/bookform.html';
     }
 
     /**
@@ -103,7 +95,6 @@ class BookController
         //Change stuff here
         // Retrieve form data
         $bookTitle = $data['title'];
-        //$author = $_POST['author'];
         foreach ($_SESSION['authors'] as $auth) {
             if ($auth->getId() == $data['author']) {
                 $author = $auth;
@@ -112,18 +103,16 @@ class BookController
         }
         $isbn = $data['isbn'];
         $publisher = $data['publisher'];
-        //$publicationDate = $data['publicationDate'];
         $publicationDate = new DateTimeImmutable($data['publicationDate']);
         //$publicationDate = DateTime::createFromFormat('Y-m-d', $data['publishedAt']);
         $pageCount = $data['pageCount'];
         $id = $_SESSION['id'];
 
-        // Create a new Book object, somehow always gives id of 1
+        // Create a new Book object
         $newBook = new Book($bookTitle, $author, $isbn, $publisher, $publicationDate, $pageCount, $id);
 
-        //BookRepository::add($newBook);
         $this->repository->add($newBook);
-        //BookController::index();
+
         $this->index();
     }
 }

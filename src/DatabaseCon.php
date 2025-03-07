@@ -76,7 +76,7 @@ class DatabaseCon
     {
         $statement = $this->db->prepare($sql);
         $statement->execute($where);
-        //$statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $className);
+
         $result = $statement->fetchAll();
         if (empty($result)) {
             return null;

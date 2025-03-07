@@ -1,11 +1,12 @@
 <?php
 namespace Cheatze\Library;
 use \DateTimeImmutable;
-class Book
+use Cheatze\Library\Item;
+class Book extends Item
 {
-    private static int $count = 0;
-    private int $id;
-    private string $title;
+    //private static int $count = 0;
+    // private int $id; //in item
+    //private string $title; //in item
     private Author $author;
     private string $isbn;
     private string $publisher;
@@ -25,15 +26,17 @@ class Book
         $this->pageCount = $pageCount;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
+    // //to remove, is in item
+    // public function getId()
+    // {
+    //     return $this->id;
+    // }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
+    //to remeove, is in item
+    // public function getTitle()
+    // {
+    //     return $this->title;
+    // }
 
     public function getAuthor()
     {
@@ -109,6 +112,21 @@ class Book
             $data['PageCount'],
             $data['Id']
         );
+    }
+
+    public function getOverviewText()
+    {
+        return sprintf(
+            "Title: %s, published by: %s, written by: %s",
+            $this->getTitle(),
+            $this->getPublisher(),
+            $this->getAuthorName()
+        );
+    }
+
+    public function getUrl()
+    {
+        return "book/id=" . $this->getId();
     }
 
 }
