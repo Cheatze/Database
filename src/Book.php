@@ -124,4 +124,9 @@ class Book extends Item
         );
     }
 
+    public function getUrl()
+    {
+        return "book/id=" . $this->getId();
+    }
+
 }

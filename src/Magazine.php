@@ -98,4 +98,9 @@ class Magazine extends Item
             $this->getEditor()
         );
     }
+
+    public function getUrl()
+    {
+        return 'magazine/id=' . $this->getId();
+    }
 }

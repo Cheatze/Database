@@ -96,4 +96,9 @@ class Boardgame extends Item
             $this->getDesigner()
         );
     }
+
+    public function getUrl()
+    {
+        return "magazine/id=" . $this->getId();
+    }
 }

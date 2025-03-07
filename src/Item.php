@@ -17,5 +17,5 @@ abstract class Item
 
     abstract public function toArray();
     abstract public function getOverviewText();
-
+    abstract public function getUrl();
 }
