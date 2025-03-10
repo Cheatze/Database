@@ -114,4 +114,11 @@ class QueryBuilder
         $sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
         return $this->databaseCon->delete($sql, ['id' => $id]);
     }
+
+    //add a method for checking if there is a entry in the db where user and id are the same as the given variables
+    //Or can I just use get()?
+    public function checker(string $username, string $password){
+        $sql = 'SELECT FROM ' . $this->table;// . 'WHERE Username = :username AND Password = :password';
+
+    }
 }

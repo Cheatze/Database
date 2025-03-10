@@ -1,5 +1,8 @@
 <?php
 namespace Cheatze\Library;
+use Cheatze\Library\AuthenticationController;
+
+
 //use Cheatze\Library\BookController
 // class Router
 // {
@@ -100,6 +103,11 @@ class Router
         ['get', 'itemindex', 'showAllItems'],
         ['get', 'itemsearch', 'itemSearchForm'],
         ['post', 'search', 'itemSearch'],
+        ['get', 'registrationPage', 'showRegistration'],
+        ['get', 'loginPage', 'showLogin'],
+        ['post', 'register', 'register'],
+        ['post', 'login', 'login'],
+        ['get', 'logout', 'logout'],
     ];
 
     private array $pathPieces;
@@ -108,6 +116,7 @@ class Router
     private MagazineController $magazineController;
     private BoardgameController $boardgameController;
     private ItemController $itemController;
+    private AuthenticationController $authenticationController;
 
     public function __construct()
     {
@@ -116,6 +125,7 @@ class Router
         $this->magazineController = new MagazineController();
         $this->boardgameController = new BoardgameController();
         $this->itemController = new ItemController();
+        $this->authenticationController = new AuthenticationController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -148,6 +158,15 @@ class Router
                     return;
                 } elseif ($routeAction === "itemSearchForm") {
                     $this->itemController->itemSearchForm();
+                    return;
+                } elseif ($routeAction === "showRegistration") {
+                    $this->authenticationController->showRegistration();
+                    return;
+                } elseif ($routeAction === "showLogin") {
+                    $this->authenticationController->showLogin();
+                    return;
+                } elseif ($routeAction === "logout") {
+                    $this->authenticationController->logout();
                     return;
                 }
 
@@ -183,6 +202,12 @@ class Router
                     return;
                 } elseif ($routeAction === "itemSearch") {
                     $this->itemController->itemSearch($_POST);
+                    return;
+                } elseif ($routeAction === "register") {
+                    $this->authenticationController->register($_POST);
+                    return;
+                } elseif ($routeAction === "login") {
+                    $this->authenticationController->login($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {
