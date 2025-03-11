@@ -17,13 +17,14 @@ class AuthenticationService
         $this->userRepository->addUser($user);
     }
 
-    public function login(string $username, string $password)
+    public function login(string $username)
     {
-        $check = $this->userRepository->getUser($username, $password);
+        $check = $this->userRepository->getUser($username);
+        //return $check;
         if ($check == null) {
             return false;
         } else {
-            return true;
+            return $check;
         }
     }
 

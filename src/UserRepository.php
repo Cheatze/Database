@@ -20,10 +20,10 @@ class UserRepository
         $this->queryBuilder->insert($keyValuePairs);
     }
 
-    public function getUser(string $username, string $password)
+    public function getUser(string $username)
     {
-        $check = $this->queryBuilder->select(['*'])->where(['Username' => $username, "Password" => $password])->get();
-        return $check;
+        $check = $this->queryBuilder->select(['*'])->where(['Username' => $username])->get();
+        return $check[0];
     }
 
     public function getAll()

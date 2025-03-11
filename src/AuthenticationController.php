@@ -26,14 +26,33 @@ class AuthenticationController
     public function login($data)
     {
         $username = $data['username'];
-        $password = $data['password'];
-        $checker = $this->authenticationService->login($username, $password);
-        if ($checker == true) {
+        $password = $data['password'];//
+        $checker = $this->authenticationService->login($username);
+        $checkAr = $checker->toArray();
+        $valid = false;
+
+        // if (password_verify($password, $checkAr['Password'])) {
+        //     $valid = true;
+        // }
+
+        if (isset($checkAr['Password'])) {
+            if (password_verify($password, $checkAr['Password'])) {
+                $valid = true;
+            }
+        }
+        // if ($checker == null || password_verify($password, $checker['password'])) {
+        //     $valid = false;
+        // } else {
+        //     $valid = true;
+        // }
+
+        if ($valid) {
             echo "Logged in!";
             $_SESSION['Login'] = true;
             include_once "html/menu.html";
         } else {
             echo "<script>alert('Login failed');</script>";
+            echo $checkAr['Password'];
             include_once "html/login.html";
         }
     }
@@ -54,8 +73,9 @@ class AuthenticationController
     {
         $username = $data['username'];
         $password = $data['password'];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $email = $data['email'];
-        $user = new User($username, $password, $email);
+        $user = new User($username, $hashed_password, $email);
         $this->authenticationService->register($user);
         include_once "html/login.html";
     }
