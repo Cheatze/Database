@@ -2,8 +2,10 @@
 namespace Cheatze\Library;
 use \DateTimeImmutable;
 use Cheatze\Library\Item;
-class Book extends Item
+class Book extends Item implements Borrowable
 {
+    use Borrow;
+
     //private static int $count = 0;
     // private int $id; //in item
     //private string $title; //in item
@@ -73,6 +75,24 @@ class Book extends Item
     {
         return $this->pageCount;
     }
+
+    //Returns the type of thing that's being loaned, I think
+    // public function returnItem()
+    // {
+    //     return "Book";
+    // }
+
+    // //What does this have to return? A new property?
+    // public function borrowItem()
+    // {
+
+    // }
+
+    // //Availability? I thought that that wasn't kept track of in this place?
+    // public function getAvailability()
+    // {
+
+    // }
 
     //Add a toarray function that returns a associative array
     public function toArray()
