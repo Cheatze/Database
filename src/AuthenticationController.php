@@ -49,6 +49,7 @@ class AuthenticationController
         if ($valid) {
             echo "Logged in!";
             $_SESSION['Login'] = true;
+            $_SESSION['user'] = $username;
             include_once "html/menu.html";
         } else {
             echo "<script>alert('Login failed');</script>";
@@ -61,6 +62,7 @@ class AuthenticationController
     {
         echo "Logged out!";
         $_SESSION['Login'] = false;
+        unset($_SESSION['user']);
         include_once "html/menu.html";
     }
 
