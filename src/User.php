@@ -36,6 +36,10 @@ class User
         return $this->email;
     }
 
+    /**
+     * Returns an array with user data
+     * @return array{Email: string, Password: string, Username: string}
+     */
     public function toArray()
     {
         return [
@@ -45,6 +49,11 @@ class User
         ];
     }
 
+    /**
+     * Creates a new user from array data and returns that user
+     * @param mixed $data
+     * @return User
+     */
     public static function fromArray($data)
     {
         return new User(

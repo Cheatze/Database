@@ -77,8 +77,6 @@ class QueryBuilder
 
         }
 
-        //return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
-
     }
 
     /**
@@ -115,10 +113,4 @@ class QueryBuilder
         return $this->databaseCon->delete($sql, ['id' => $id]);
     }
 
-    //add a method for checking if there is a entry in the db where user and id are the same as the given variables
-    //Or can I just use get()?
-    public function checker(string $username, string $password){
-        $sql = 'SELECT FROM ' . $this->table;// . 'WHERE Username = :username AND Password = :password';
-
-    }
 }

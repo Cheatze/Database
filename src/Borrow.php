@@ -8,10 +8,10 @@ trait Borrow
     public BorrowService $burrowService;
     public BorrowStatus $status;
 
-    public function __construct()
-    {
-        $this->burrowService = new BorrowService;
-    }
+    // public function __construct()
+    // {
+    //     $this->burrowService = new BorrowService();
+    // }
 
     public function returnItem()
     {
@@ -23,10 +23,18 @@ trait Borrow
 
     }
 
-    //uses BorrowStatus enum
-    public function getAvailability()
+    //uses BorrowStatus enum, somehow?
+    public function getAvailability(string $type)
     {
-
+        $item = $this->getTitle();
+        //So instead of asigning to a variable I'm thinking setting the BorrowStatus
+        $this->status = $this->burrowService->getAvailability($type, $item);
+        //$loan = $this->burrowService->getAvailability($type, $item);
+        //$loanAr = $loan->toArray();
+        // if ($this->status->name == "Available") {
+        //     $this->status = BorrowStatus::Available;
+        // }
+        return $this->status->name;
     }
 
     public function canCustomerBorrow()
@@ -34,6 +42,4 @@ trait Borrow
 
     }
 
-
-    //Uses BorrowStatus somehow
 }

@@ -35,6 +35,6 @@ class AuthenticationService
 
     public function getAuthenticatedUser()
     {
-
+        return $_SESSION['user'];
     }
 }

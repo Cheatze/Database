@@ -31,20 +31,11 @@ class AuthenticationController
         $checkAr = $checker->toArray();
         $valid = false;
 
-        // if (password_verify($password, $checkAr['Password'])) {
-        //     $valid = true;
-        // }
-
         if (isset($checkAr['Password'])) {
             if (password_verify($password, $checkAr['Password'])) {
                 $valid = true;
             }
         }
-        // if ($checker == null || password_verify($password, $checker['password'])) {
-        //     $valid = false;
-        // } else {
-        //     $valid = true;
-        // }
 
         if ($valid) {
             echo "Logged in!";

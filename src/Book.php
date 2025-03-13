@@ -18,7 +18,6 @@ class Book extends Item implements Borrowable
 
     public function __construct(string $title, Author $author, string $isbn, string $publsiher, DateTimeImmutable $publicationDate, int $pageCount, int $id)
     {
-        //$this->id = ++static::$count;
         $this->id = $id;
         $this->title = $title;
         $this->author = $author;
@@ -26,19 +25,8 @@ class Book extends Item implements Borrowable
         $this->publisher = $publsiher;
         $this->publicationDate = $publicationDate;
         $this->pageCount = $pageCount;
+        $this->burrowService = new BorrowService();
     }
-
-    // //to remove, is in item
-    // public function getId()
-    // {
-    //     return $this->id;
-    // }
-
-    //to remeove, is in item
-    // public function getTitle()
-    // {
-    //     return $this->title;
-    // }
 
     public function getAuthor()
     {

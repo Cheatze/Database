@@ -2,9 +2,9 @@
 namespace Cheatze\Library;
 use \DateTimeImmutable;
 use Cheatze\Library\Item;
-class Magazine extends Item
+class Magazine extends Item implements Borrowable
 {
-
+    use Borrow;
 
     private string $editor;
     private string $issn;
