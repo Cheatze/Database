@@ -3,6 +3,7 @@ namespace Cheatze\Library;
 
 interface Borrowable
 {
+    public function getId();
     //I think using this returns the item
     public function returnItem();
     //And using this borrows the item

@@ -9,6 +9,9 @@
         <h3>
             <?php echo $book->getTitle(); ?>
         </h3>
+        <p><strong>Id:</strong>
+            <?php echo $book->getId(); ?>
+        </p>
         <p><strong>Author:</strong>
             <?php echo $book->getAuthor()->getFirstName() . ' ' . $book->getAuthor()->getLastName(); ?>
         </p>
@@ -25,12 +28,21 @@
             <?php echo $book->getPagecount(); ?>
         </p>
         <p><strong>Availability:</strong>
-            <?php echo $book->getAvailability('book'); ?>
+            <?php echo $book->getAvailability($book->getId()); ?>
+        </p>
+        <p><strong>Type:</strong>
+            <?php echo get_class($book); ?>
         </p>
     </div><!--Delete button that calls the path to the remove method with the id of the current $book object-->
     <form method="POST" action='../book' onsubmit="return confirm('Do you really want to delete this book?')">
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
         <input type="submit" value="Delete">
+    </form>
+    <form method="POST" action="../borrow">
+        <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
+        <!-- <input type="hidden" name="item" value="<?php echo $book->getTitle(); ?>"> -->
+        <input type="hidden" name="type" value="<?php echo get_class($book); ?>">
+        <input type="submit" value="Borrow">
     </form>
     <!--A borrow button and a return button and a new information field that shows if the item is available-->
     <a href="../menu">Back</a>

@@ -19,15 +19,21 @@ class BorrowService
 
     }
 
-    public function borrowItem()
+    public function borrowItem(Borrowable $item)
     {
         $user = $this->authenticationService->getAuthenticatedUser();
+        $class = get_class($item);
+        $thing = basename($class);
+        $key = $thing . $item->getId();
+        //$key = intval($key);
+        $loan = new Loan($key, $user, 21);
+        $this->loanRepository->addLoan($loan);
     }
 
     //how can this return BorrowStatus?
-    public function getAvailability(string $type, string $item): BorrowStatus
+    public function getAvailability(string $typeId, string $item): BorrowStatus
     {
-        $loan = $this->loanRepository->getLoan($type, $item);
+        $loan = $this->loanRepository->getLoan($typeId, $item);
         //$loanAr = $loan->toArray();
         if ($loan == null) {
             return BorrowStatus::Available;

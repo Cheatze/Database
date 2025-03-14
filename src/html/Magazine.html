@@ -24,6 +24,9 @@
         <p><strong>Occurrence:</strong>
             <?php echo $magazine->getOccurrence(); ?>
         </p>
+        <p><strong>Availability:</strong>
+            <?php echo $magazine->getAvailability('magazine'); ?>
+        </p>
     </div><!--Delete button that calls the path to the remove method with the id of the current $book object-->
     <form method="POST" action='../magazine' onsubmit="return confirm('Do you really want to delete this magazine?')">
         <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">

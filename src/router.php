@@ -108,6 +108,7 @@ class Router
         ['post', 'register', 'register'],
         ['post', 'login', 'login'],
         ['get', 'logout', 'logout'],
+        ['post', 'borrow', 'borrowItem'],
     ];
 
     private array $pathPieces;
@@ -117,6 +118,7 @@ class Router
     private BoardgameController $boardgameController;
     private ItemController $itemController;
     private AuthenticationController $authenticationController;
+    private LoanController $loanController;
 
     public function __construct()
     {
@@ -126,6 +128,7 @@ class Router
         $this->boardgameController = new BoardgameController();
         $this->itemController = new ItemController();
         $this->authenticationController = new AuthenticationController();
+        $this->loanController = new LoanController();
 
         if (isset($_SERVER['PATH_INFO'])) {
             $pathInfo = $_SERVER['PATH_INFO'];
@@ -208,6 +211,9 @@ class Router
                     return;
                 } elseif ($routeAction === "login") {
                     $this->authenticationController->login($_POST);
+                    return;
+                } elseif ($routeAction == "borrowItem") {
+                    $this->loanController->borrowItem($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {

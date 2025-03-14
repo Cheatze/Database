@@ -61,7 +61,7 @@ class BookRepository
      * @param int $id
      * @return array
      */
-    public function returnById(int $id)
+    public function returnById(int $id): Book|null
     {
         $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 

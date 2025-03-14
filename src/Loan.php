@@ -7,19 +7,19 @@ class Loan
 {
     private int $id;
     //private Borrowable $item; //Does this have to be an object? I haven't seen where it is used as such.
-    private string $item; 
-    private string $user;
+    private string $item;
+    private string $user; //also an object in the diagram
     private int $term; //How long you can loan something
     private DateTimeImmutable $loanDate;
     private DateTimeImmutable $returnDate;
 
-    public function __construct(string $item, string $user, int $term, DateTimeImmutable $loanDate, DateTimeImmutable $returnDate, $int = 1)
+    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = null, DateTimeImmutable $returnDate = null, $int = 1)
     {
         $this->item = $item;
         $this->user = $user;
         $this->term = $term;
-        $this->loanDate = $loanDate;
-        $this->returnDate = $returnDate;
+        $this->loanDate = $loanDate ?? new DateTimeImmutable();
+        $this->returnDate = $returnDate ?? new DateTimeImmutable();
     }
 
     public function getItem()
@@ -70,11 +70,17 @@ class Loan
 
     public static function fromArray($data)
     {
-        $data['loanDate'] = new DateTimeImmutable($data['loanDate']);
-        $data['returnDate'] = new DateTimeImmutable($data['returnDate']);
+        $data['LoanDate'] = new DateTimeImmutable($data['LoanDate']);
+        $data['ReturnDate'] = new DateTimeImmutable($data['ReturnDate']);
         //How can I use the data to give a borrowable to the new loan?
         //fromArray is used in the querybuilder to turn the array of info from the database into an object
-        //
+        return new Loan(
+            $data['Item'],
+            $data['User'],
+            $data['Term'],
+            $data['LoanDate'],
+            $data['ReturnDate']
+        );
     }
 
 }

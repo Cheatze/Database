@@ -38,7 +38,7 @@ class MagazineRepository
      * Gets one magazine from the database with the given id
      * @param int $id
      */
-    public function returnMagazineById(int $id)
+    public function returnMagazineById(int $id): Magazine
     {
         $magazine = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
