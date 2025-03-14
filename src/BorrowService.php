@@ -14,11 +14,28 @@ class BorrowService
         $this->authenticationService = new AuthenticationService();
     }
 
-    public function returnItem()
+    /**
+     * Takes the clasname and id from the item and calls the getLoan on the loanRepository
+     * Takes the id of the returned loan and calls the removeLoan method using that id
+     * @param \Cheatze\Library\Borrowable $item
+     * @return void
+     */
+    public function returnItem(Borrowable $item)
     {
-
+        $class = get_class($item);
+        $type = basename($class);
+        $id = $item->getId();
+        $loan = $this->loanRepository->getLoan($id, $type);
+        $remId = $loan->getId();
+        $this->loanRepository->removeLoan($remId);
     }
 
+    /**
+     * From the given borrowable item gets the classname and Id and session username from authenticationService
+     * Concatinates the classname and id and uses those and user to make a new loan and calls the addLoan on the loanRepository
+     * @param \Cheatze\Library\Borrowable $item
+     * @return void
+     */
     public function borrowItem(Borrowable $item)
     {
         $user = $this->authenticationService->getAuthenticatedUser();
@@ -30,7 +47,13 @@ class BorrowService
         $this->loanRepository->addLoan($loan);
     }
 
-    //how can this return BorrowStatus?
+    /**
+     * Searches the loan table for a certain loan and geturns the right borrow status
+     * To be adjusted for showing the 'late' borrow status
+     * @param string $typeId
+     * @param string $item
+     * @return BorrowStatus
+     */
     public function getAvailability(string $typeId, string $item): BorrowStatus
     {
         $loan = $this->loanRepository->getLoan($typeId, $item);

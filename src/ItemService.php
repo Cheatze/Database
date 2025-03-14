@@ -16,6 +16,10 @@ class ItemService
         $this->boardgameService = new BoardgameService();
     }
 
+    /**
+     * Retuns every item from the three database tables and merges the resulting arrays and returns the merged array
+     * @return array
+     */
     public function getAllItems()
     {
         $items = [];
@@ -26,6 +30,11 @@ class ItemService
         return $items;
     }
 
+    /**
+     * Searches each of the three database tables on the form search term and merges the resulting arrays and retuns that array
+     * @param mixed $data
+     * @return array
+     */
     public function searchAllItems($data)
     {
         $search = $data['item'];

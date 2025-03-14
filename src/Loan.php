@@ -13,13 +13,19 @@ class Loan
     private DateTimeImmutable $loanDate;
     private DateTimeImmutable $returnDate;
 
-    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = null, DateTimeImmutable $returnDate = null, $int = 1)
+    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = null, DateTimeImmutable $returnDate = null, int $id = 1)
     {
         $this->item = $item;
         $this->user = $user;
         $this->term = $term;
         $this->loanDate = $loanDate ?? new DateTimeImmutable();
         $this->returnDate = $returnDate ?? new DateTimeImmutable();
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getItem()
@@ -64,22 +70,28 @@ class Loan
             'user' => $this->getUser(),
             'term' => $this->getTerm(),
             'loanDate' => $this->getLoanDateAsString(),
-            'returnDate' => $this->getReturnDateAsString()
+            'returnDate' => $this->getReturnDateAsString(),
+            //'id' => $this->getId(),
         ];
     }
 
+    /**
+     * Makes and returns a new Loan object from the data of a given array
+     * @param mixed $data
+     * @return Loan
+     */
     public static function fromArray($data)
     {
         $data['LoanDate'] = new DateTimeImmutable($data['LoanDate']);
         $data['ReturnDate'] = new DateTimeImmutable($data['ReturnDate']);
-        //How can I use the data to give a borrowable to the new loan?
-        //fromArray is used in the querybuilder to turn the array of info from the database into an object
+
         return new Loan(
             $data['Item'],
             $data['User'],
             $data['Term'],
             $data['LoanDate'],
-            $data['ReturnDate']
+            $data['ReturnDate'],
+            $data['Id']
         );
     }
 

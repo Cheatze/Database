@@ -40,9 +40,13 @@
     </form>
     <form method="POST" action="../borrow">
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
-        <!-- <input type="hidden" name="item" value="<?php echo $book->getTitle(); ?>"> -->
         <input type="hidden" name="type" value="<?php echo get_class($book); ?>">
         <input type="submit" value="Borrow">
+    </form>
+    <form method="POST" action="../return">
+        <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
+        <input type="hidden" name="type" value="<?php echo get_class($book); ?>">
+        <input type="submit" value="Return">
     </form>
     <!--A borrow button and a return button and a new information field that shows if the item is available-->
     <a href="../menu">Back</a>

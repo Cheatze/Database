@@ -14,10 +14,15 @@ trait Borrow
     // }
 
     public function returnItem()
-    {
-        $this->status = BorrowStatus::Available; //if it is loaned by the current user
+    {//string $type, int $id
+        //$this->status = BorrowStatus::Available; //if it is loaned by the current user
+        $this->burrowService->returnItem($this);
     }
 
+    /**
+     * Calls the borrowItem method on the borrowService and passes this object as an argument
+     * @return void
+     */
     public function borrowItem()
     {
         //borrowService->borrow($this);

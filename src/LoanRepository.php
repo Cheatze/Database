@@ -12,6 +12,11 @@ class LoanRepository
         $this->queryBuilder = new QueryBuilder(Loan::class, 'loans');
     }
 
+    /**
+     * Adds a new loan entry in the loans db table from the given loan object
+     * @param \Cheatze\Library\Loan $loan
+     * @return void
+     */
     public function addLoan(Loan $loan)
     {
         $keyValuePairs = $loan->toArray();
@@ -36,8 +41,14 @@ class LoanRepository
 
     }
 
-    public function removeLoan()
+    /**
+     * Removes a loan with a given id
+     * @param int $id
+     * @return void
+     */
+    public function removeLoan(int $id)
     {
+        $this->queryBuilder->remove($id);
 
     }
 

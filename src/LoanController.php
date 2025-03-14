@@ -4,35 +4,32 @@ namespace Cheatze\Library;
 class LoanController
 {
 
-    //public LoanRepository $loanRepository;
-
     public BookRepository $bookRepository;
     public MagazineRepository $magazineRepository;
-
     public BorrowService $borrowService;
-
-    //public AuthenticationService $authenticationService;
 
     public function __construct()
     {
-        //$this->loanRepository = new LoanRepository();
         $this->borrowService = new BorrowService();
         $this->bookRepository = new BookRepository();
         $this->magazineRepository = new MagazineRepository();
-        //$this->authenticationService = new AuthenticationService();
     }
 
-    //Haal item uit repository en roep borrow methode aan aan op item
+    /**
+     * Retrieves a book or magazine object on basis of post form data and calls the borrowItem method on that object.
+     * Then includes the menu html
+     * @param mixed $data
+     * @return void
+     */
     public function borrowItem($data)
     {
         $id = $data['id'];
         $id = intval($id);
         $type = $data['type'];
         $type = basename($type);
-        // $item = $type . $id; //in borrow service stoppen
-        echo "Type" . $type;
-        // $user = $this->authenticationService->getAuthenticatedUser();
-        // $loan = new Loan($item, $user);
+
+        //echo "Type" . $type;
+
         if ($type == "Book") {
             $borrowItem = $this->bookRepository->returnById($id);
         } elseif ($type == "Magazine") {
@@ -40,7 +37,27 @@ class LoanController
         }
         $borrowItem->borrowItem();
         include_once "html/menu.html";
-        //$this->borrowService->borrowItem($loan); call borrowItem on the item which calls the service which calls the repository?
+    }
+
+    /**
+     * Retrieves a book or magazine object on basis of post form data and calls the returnItem method on that object
+     * Then includes and returns view to the menu
+     * @param mixed $data
+     * @return void
+     */
+    public function returnItem($data)
+    {
+        $id = $data['id'];
+        $type = $data['type'];
+        $type = basename($type);
+        if ($type == "Book") {
+            $borrowItem = $this->bookRepository->returnById($id);
+        } elseif ($type == "Magazine") {
+            $borrowItem = $this->magazineRepository->returnMagazineById($id);
+        }
+        $borrowItem->returnItem();
+        include_once "html/menu.html";
+
     }
 
 

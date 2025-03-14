@@ -109,6 +109,7 @@ class Router
         ['post', 'login', 'login'],
         ['get', 'logout', 'logout'],
         ['post', 'borrow', 'borrowItem'],
+        ['post', 'return', 'returnItem'],
     ];
 
     private array $pathPieces;
@@ -214,6 +215,9 @@ class Router
                     return;
                 } elseif ($routeAction == "borrowItem") {
                     $this->loanController->borrowItem($_POST);
+                    return;
+                } elseif ($routeAction == "returnItem") {
+                    $this->loanController->returnItem($_POST);
                     return;
                 }
                 if ($routeMethod == 'post') {

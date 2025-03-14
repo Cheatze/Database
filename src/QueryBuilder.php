@@ -113,4 +113,9 @@ class QueryBuilder
         return $this->databaseCon->delete($sql, ['id' => $id]);
     }
 
+    // public function removeL(string $item){
+    //     $sql = 'DELETE FROM ' . $this->table . ' WHERE item = :item';
+    //     return $this->databaseCon->delete($sql, []);
+    // }
+
 }
