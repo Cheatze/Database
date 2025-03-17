@@ -29,9 +29,14 @@ trait Borrow
         $this->burrowService->borrowItem($this);
     }
 
-    //uses BorrowStatus enum, somehow?
-    public function getAvailability(string $typeId)
+    /**
+     * Checks for the existence of a loan on the current object and returns the availability status
+     * @param string $typeId
+     * @return string
+     */
+    public function getAvailability()
     {
+        $typeId = $this->getId();
         $class = get_class($this);
         $item = basename($class);
         //$item = $this->getTitle();
@@ -44,6 +49,7 @@ trait Borrow
         // }
         return $this->status->name;
     }
+
 
     public function canCustomerBorrow()
     {

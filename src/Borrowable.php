@@ -10,7 +10,7 @@ interface Borrowable
     public function borrowItem();
     //And this retuns if the item is available
     //Something that should be seen in the details page
-    public function getAvailability(string $type);
+    public function getAvailability();
 
     public function getTitle();
 }
