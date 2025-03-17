@@ -46,13 +46,7 @@ class AuthenticationController
         $password = $data['password'];//
         $checker = $this->authenticationService->login($username);
         $checkAr = $checker->toArray();
-        $valid = false;
-
-        if (isset($checkAr['Password'])) {
-            if (password_verify($password, $checkAr['Password'])) {
-                $valid = true;
-            }
-        }
+        $valid = isset($checkAr['Password']) && password_verify($password, $checkAr['Password']);
 
         if ($valid) {
             echo "Logged in!";
@@ -61,7 +55,6 @@ class AuthenticationController
             include_once "html/menu.html";
         } else {
             echo "<script>alert('Login failed');</script>";
-            //echo $checkAr['Password'];
             include_once "html/login.html";
         }
     }

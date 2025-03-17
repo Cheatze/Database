@@ -13,7 +13,7 @@ class Loan
     private DateTimeImmutable $loanDate;
     private DateTimeImmutable $returnDate;
 
-    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = null, DateTimeImmutable $returnDate = null, int $id = 1)
+    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = new DateTimeImmutable(), DateTimeImmutable $returnDate = new DateTimeImmutable(), int $id = 1)
     {
         $this->item = $item;
         $this->user = $user;
@@ -71,7 +71,6 @@ class Loan
             'term' => $this->getTerm(),
             'loanDate' => $this->getLoanDateAsString(),
             'returnDate' => $this->getReturnDateAsString(),
-            //'id' => $this->getId(),
         ];
     }
 

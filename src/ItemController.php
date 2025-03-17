@@ -23,12 +23,6 @@ class ItemController
         include_once 'html/itemindex.html';
     }
 
-    //unused
-    public function showItem(int $id)
-    {
-
-    }
-
     /**
      * Includes the item search html
      * @return void

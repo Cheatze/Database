@@ -10,6 +10,7 @@ class QueryBuilder
     private DatabaseCon $databaseCon;
     private array $select = ['*'];
     private array $where = [];
+    
     private string $className;
 
     /**
@@ -72,10 +73,9 @@ class QueryBuilder
         $result = $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
         if ($result == null) {
             return [];
-        } else {
-            return array_map(fn($item) => $this->className::fromArray($item), $result);
-
         }
+        return array_map(fn($item) => $this->className::fromArray($item), $result);
+
 
     }
 
@@ -109,13 +109,9 @@ class QueryBuilder
      */
     public function remove(int $id)
     {
-        $sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $sql = "DELETE FROM $this->table WHERE id = :id";
         return $this->databaseCon->delete($sql, ['id' => $id]);
     }
 
-    // public function removeL(string $item){
-    //     $sql = 'DELETE FROM ' . $this->table . ' WHERE item = :item';
-    //     return $this->databaseCon->delete($sql, []);
-    // }
 
 }

@@ -22,12 +22,10 @@ class ItemService
      */
     public function getAllItems()
     {
-        $items = [];
         $books = $this->bookService->getAll();
         $magazines = $this->magazineService->getAllMagazines();
         $boardgames = $this->boardgameService->getAllBoardgames();
-        $items = array_merge($items, $books, $magazines, $boardgames);
-        return $items;
+        return array_merge($books, $magazines, $boardgames);
     }
 
     /**
@@ -48,10 +46,5 @@ class ItemService
 
     }
 
-    //Meak how?
-    public function returnItem()
-    {
-
-    }
 
 }

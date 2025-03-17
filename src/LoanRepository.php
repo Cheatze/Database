@@ -1,6 +1,5 @@
 <?php
 namespace Cheatze\Library;
-use \DateTimeImmutable;
 
 class LoanRepository
 {
@@ -19,8 +18,7 @@ class LoanRepository
      */
     public function addLoan(Loan $loan)
     {
-        $keyValuePairs = $loan->toArray();
-        $this->queryBuilder->insert($keyValuePairs);
+        $this->queryBuilder->insert($loan->toArray());
     }
 
     /**
@@ -29,10 +27,8 @@ class LoanRepository
      */
     public function getLoan(string $typeId, string $item)
     {
-        //If I also do it like this in the addLoan method there shouldn't be any overlap with other items
-        //$typeId = (string) $typeId;
-        $thing = $item . $typeId;
-        $check = $this->queryBuilder->select(['*'])->where(['Item' => $thing])->get();
+        $itemAndId = $item . $typeId;
+        $check = $this->queryBuilder->select(['*'])->where(['Item' => $itemAndId])->get();
         if (empty($check)) {
             return null;
         } else {

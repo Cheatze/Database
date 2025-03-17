@@ -104,3 +104,4 @@ class Magazine extends Item implements Borrowable
         return 'magazine/id=' . $this->getId();
     }
 }
+S

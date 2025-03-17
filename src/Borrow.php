@@ -5,7 +5,7 @@ namespace Cheatze\Library;
 trait Borrow
 {
 
-    public BorrowService $burrowService;
+    public BorrowService $borrowService;
     public BorrowStatus $status;
 
     /**
@@ -14,7 +14,7 @@ trait Borrow
      */
     public function returnItem()
     {
-        $this->burrowService->returnItem($this);
+        $this->borrowService->returnItem($this);
     }
 
     /**
@@ -23,8 +23,7 @@ trait Borrow
      */
     public function borrowItem()
     {
-        //borrowService->borrow($this);
-        $this->burrowService->borrowItem($this);
+        $this->borrowService->borrowItem($this);
     }
 
     /**
@@ -38,14 +37,9 @@ trait Borrow
         $class = get_class($this);
         $item = basename($class);
 
-        $this->status = $this->burrowService->getAvailability($typeId, $item);
+        $this->status = $this->borrowService->getAvailability($typeId, $item);
         return $this->status->name;
     }
 
-
-    public function canCustomerBorrow()
-    {
-
-    }
 
 }

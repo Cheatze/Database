@@ -12,7 +12,6 @@ session_start();
 //$authors = [];
 if (!isset($_SESSION['books'])) {
     $_SESSION['authors'] = [];
-    $_SESSION['books'] = []; // Initialize as an empty array
     $_SESSION['id'] = 1;
     include_once 'TestData.php'; //adds authors to the session variable
 }

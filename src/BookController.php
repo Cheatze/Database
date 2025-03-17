@@ -7,12 +7,10 @@ class BookController
 {
 
     public BookRepository $repository;// = new BookRepository();
-    public $main;// = new MainController();
 
     public function __construct()
     {
         $this->repository = new BookRepository();
-        $this->main = new MainController();
     }
 
     /**
@@ -98,7 +96,6 @@ class BookController
         $isbn = $data['isbn'];
         $publisher = $data['publisher'];
         $publicationDate = new DateTimeImmutable($data['publicationDate']);
-        //$publicationDate = DateTime::createFromFormat('Y-m-d', $data['publishedAt']);
         $pageCount = $data['pageCount'];
         $id = $_SESSION['id'];
 

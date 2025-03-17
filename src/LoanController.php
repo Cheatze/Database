@@ -6,13 +6,27 @@ class LoanController
 
     public BookRepository $bookRepository;
     public MagazineRepository $magazineRepository;
-    public BorrowService $borrowService;
 
     public function __construct()
     {
-        $this->borrowService = new BorrowService();
         $this->bookRepository = new BookRepository();
         $this->magazineRepository = new MagazineRepository();
+    }
+
+    //Put duplicated code of the other two methods here here and return the borrowItem;
+    public function getBorrowItem($data): array|Book|Magazine|null
+    {
+        $id = $data['id'];
+        $id = intval($id);
+        $type = $data['type'];
+        $type = basename($type);
+
+        if ($type == "Book") {
+            $borrowItem = $this->bookRepository->returnById($id);
+        } elseif ($type == "Magazine") {
+            $borrowItem = $this->magazineRepository->returnMagazineById($id);
+        }
+        return $borrowItem;
     }
 
     /**
@@ -23,18 +37,7 @@ class LoanController
      */
     public function borrowItem($data)
     {
-        $id = $data['id'];
-        $id = intval($id);
-        $type = $data['type'];
-        $type = basename($type);
-
-        //echo "Type" . $type;
-
-        if ($type == "Book") {
-            $borrowItem = $this->bookRepository->returnById($id);
-        } elseif ($type == "Magazine") {
-            $borrowItem = $this->magazineRepository->returnMagazineById($id);
-        }
+        $borrowItem = $this->getBorrowItem($data);
         $borrowItem->borrowItem();
         include_once "html/menu.html";
     }
@@ -47,17 +50,9 @@ class LoanController
      */
     public function returnItem($data)
     {
-        $id = $data['id'];
-        $type = $data['type'];
-        $type = basename($type);
-        if ($type == "Book") {
-            $borrowItem = $this->bookRepository->returnById($id);
-        } elseif ($type == "Magazine") {
-            $borrowItem = $this->magazineRepository->returnMagazineById($id);
-        }
+        $borrowItem = $this->getBorrowItem($data);
         $borrowItem->returnItem();
         include_once "html/menu.html";
-
     }
 
 

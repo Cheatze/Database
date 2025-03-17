@@ -19,7 +19,7 @@ class MagazineService
      */
     public function getAllMagazines()
     {
-        return $magazines = $this->magazineRepository->getAllMagazines();
+        return $this->magazineRepository->getAllMagazines();
     }
 
     /**
@@ -29,7 +29,6 @@ class MagazineService
      */
     public function searchMagazines(string $search)
     {
-        $magazines = $this->magazineRepository->searchMagazines($search);
-        return $magazines;
+        return $this->magazineRepository->searchMagazines($search);
     }
 }

@@ -68,5 +68,7 @@ class MagazineRepository
         $editors = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
         $magazines = array_merge($magazines, $titles, $publishers, $editors);
         return $magazines;
+
+        //So with 'or' this can all go on one line
     }
 }
