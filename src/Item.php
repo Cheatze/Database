@@ -15,6 +15,7 @@ abstract class Item
         return $this->title;
     }
 
+    //Methods that every object that inherits from Item must have but where the bodies differ
     abstract public function toArray();
     abstract public function getOverviewText();
     abstract public function getUrl();

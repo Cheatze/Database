@@ -96,20 +96,4 @@ class BookRepository
         return $books;
     }
 
-
-    // //Unused?
-    // //Checks if a book exists at a certain index and returns bool
-    // public function checkForId(int $id)
-    // {
-
-    //     $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
-
-    //     if (!empty($book)) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-
-    // }
-
 }

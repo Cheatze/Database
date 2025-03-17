@@ -6,9 +6,6 @@ class Book extends Item implements Borrowable
 {
     use Borrow;
 
-    //private static int $count = 0;
-    // private int $id; //in item
-    //private string $title; //in item
     private Author $author;
     private string $isbn;
     private string $publisher;
@@ -64,25 +61,10 @@ class Book extends Item implements Borrowable
         return $this->pageCount;
     }
 
-    //Returns the type of thing that's being loaned, I think
-    // public function returnItem()
-    // {
-    //     return "Book";
-    // }
-
-    // //What does this have to return? A new property?
-    // public function borrowItem()
-    // {
-
-    // }
-
-    // //Availability? I thought that that wasn't kept track of in this place?
-    // public function getAvailability()
-    // {
-
-    // }
-
-    //Add a toarray function that returns a associative array
+    /**
+     * Returns an array from the data of the Book object
+     * @return array{Author: string, ISBN: string, PageCount: int, PublicationDate: string, Publisher: string, Title: string}
+     */
     public function toArray()
     {
         return [
@@ -132,6 +114,10 @@ class Book extends Item implements Borrowable
         );
     }
 
+    /**
+     * Returns the get part of the url for the itemIndex list
+     * @return string
+     */
     public function getUrl()
     {
         return "book/id=" . $this->getId();

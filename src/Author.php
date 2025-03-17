@@ -44,6 +44,10 @@ class Author
         return $this->birthDate->format("Y-m-d");
     }
 
+    /**
+     * Returns an array from the data of the author object
+     * @return array{Birthdate: string, Firstname: string, Lastname: string}
+     */
     public function toArray()
     {
         return [

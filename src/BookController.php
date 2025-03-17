@@ -21,11 +21,7 @@ class BookController
      */
     public function index()
     {
-        // if (isset($_SESSION['books'])) {
         $books = $this->repository->getAll();
-        // } else {
-        //     $books = [];
-        // }
         include_once 'html/bookindex.html';
     }
 
@@ -92,8 +88,6 @@ class BookController
      */
     public function add($data)
     {
-        //Change stuff here
-        // Retrieve form data
         $bookTitle = $data['title'];
         foreach ($_SESSION['authors'] as $auth) {
             if ($auth->getId() == $data['author']) {

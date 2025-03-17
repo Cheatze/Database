@@ -1,15 +1,17 @@
 <?php
 namespace Cheatze\Library;
 
+/**
+ * Methods that are used where a borroable object is used
+ */
 interface Borrowable
 {
     public function getId();
-    //I think using this returns the item
+
     public function returnItem();
-    //And using this borrows the item
+
     public function borrowItem();
-    //And this retuns if the item is available
-    //Something that should be seen in the details page
+
     public function getAvailability();
 
     public function getTitle();

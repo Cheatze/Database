@@ -5,7 +5,7 @@ enum BorrowStatus
 {
     case Available;
     case OnLoan;
-    case Maintenance;
+    //case Maintenance;
     case Reserved;
     case Late;
 }

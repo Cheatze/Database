@@ -8,14 +8,12 @@ trait Borrow
     public BorrowService $burrowService;
     public BorrowStatus $status;
 
-    // public function __construct()
-    // {
-    //     $this->burrowService = new BorrowService();
-    // }
-
+    /**
+     * Removes a loan from the loans database table using the data of the current object
+     * @return void
+     */
     public function returnItem()
-    {//string $type, int $id
-        //$this->status = BorrowStatus::Available; //if it is loaned by the current user
+    {
         $this->burrowService->returnItem($this);
     }
 
@@ -39,14 +37,8 @@ trait Borrow
         $typeId = $this->getId();
         $class = get_class($this);
         $item = basename($class);
-        //$item = $this->getTitle();
-        //So instead of asigning to a variable I'm thinking setting the BorrowStatus
+
         $this->status = $this->burrowService->getAvailability($typeId, $item);
-        //$loan = $this->burrowService->getAvailability($type, $item);
-        //$loanAr = $loan->toArray();
-        // if ($this->status->name == "Available") {
-        //     $this->status = BorrowStatus::Available;
-        // }
         return $this->status->name;
     }
 

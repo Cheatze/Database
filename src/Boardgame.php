@@ -59,6 +59,10 @@ class Boardgame extends Item
         return $this->maxPlayers;
     }
 
+    /**
+     * Returns an array from the data of the Boardgame object
+     * @return array{Designer: string, Ean: int, MaxPlayers: int, MinPlayers: int, Publisher: string, ReleaseDate: string, Title: string}
+     */
     public function toArray()
     {
         return [
@@ -72,6 +76,11 @@ class Boardgame extends Item
         ];
     }
 
+    /**
+     * Creates a new Boardgame object from the data of a given array
+     * @param mixed $data
+     * @return Boardgame
+     */
     public static function fromArray($data)
     {
         $data['ReleaseDate'] = new DateTimeImmutable($data['ReleaseDate']);
@@ -97,6 +106,10 @@ class Boardgame extends Item
         );
     }
 
+    /**
+     * returns the get value for the links in the item index list
+     * @return string
+     */
     public function getUrl()
     {
         return "magazine/id=" . $this->getId();

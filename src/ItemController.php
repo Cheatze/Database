@@ -23,7 +23,7 @@ class ItemController
         include_once 'html/itemindex.html';
     }
 
-    //How?
+    //unused
     public function showItem(int $id)
     {
 

@@ -13,16 +13,33 @@ class AuthenticationController
         $this->authenticationService = new AuthenticationService();
     }
 
+    /**
+     * Shows the login page
+     * @return void
+     */
     public function showLogin()
     {
         include_once "html/login.html";
     }
 
+    /**
+     * Shows the registration page
+     * @return void
+     */
     public function showRegistration()
     {
         include_once "html/register.html";
     }
 
+
+    /**
+     * Login with the login form data
+     * Gets the user with the given username from the database and checks the hash on the password
+     * If successful sets the Login and user session variables and returns to the menu
+     * If unsuccesful shows an alert and returns tot he login page
+     * @param mixed $data
+     * @return void
+     */
     public function login($data)
     {
         $username = $data['username'];
@@ -44,11 +61,15 @@ class AuthenticationController
             include_once "html/menu.html";
         } else {
             echo "<script>alert('Login failed');</script>";
-            echo $checkAr['Password'];
+            //echo $checkAr['Password'];
             include_once "html/login.html";
         }
     }
 
+    /**
+     * Logs the user out by unsetting the login session variable and returns view back to the menu
+     * @return void
+     */
     public function logout()
     {
         echo "Logged out!";

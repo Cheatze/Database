@@ -4,11 +4,11 @@ use PDO;
 
 class DatabaseCon
 {
-    private string $host;//
-    private string $database;//
+    private string $host;
+    private string $database;
     private $charset = 'utf8mb4';
-    private string $user; //
-    private string $password; //
+    private string $user;
+    private string $password;
 
     private $db;
 
