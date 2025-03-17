@@ -38,17 +38,25 @@
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
         <input type="submit" value="Delete">
     </form>
+    <?php
+    if($book->getAvailability() == 'Available'){
+        ?>
     <form method="POST" action="../borrow">
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
         <input type="hidden" name="type" value="<?php echo get_class($book); ?>">
         <input type="submit" value="Borrow">
     </form>
+    <?php
+    }elseif($book->getAvailability() == 'OnLoan'){
+     ?>
     <form method="POST" action="../return">
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">
         <input type="hidden" name="type" value="<?php echo get_class($book); ?>">
         <input type="submit" value="Return">
     </form>
-    <!--A borrow button and a return button and a new information field that shows if the item is available-->
+    <?php
+    }
+    ?>
     <a href="../menu">Back</a>
 </body>
 

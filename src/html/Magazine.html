@@ -32,6 +32,25 @@
         <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
         <input type="submit" value="Delete">
     </form>
+    <?php
+    if($magazine->getAvailability() == 'Available'){
+    ?>
+    <form method="POST" action="../borrow">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="hidden" name="type" value="<?php echo get_class($magazine); ?>">
+        <input type="submit" value="Borrow">
+    </form>
+    <?php
+        }elseif($magazine->getAvailability() == 'OnLoan'){
+             ?>
+    <form method="POST" action="../return">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="hidden" name="type" value="<?php echo get_class($magazine); ?>">
+        <input type="submit" value="Return">
+    </form>
+    <?php
+            }
+            ?>
     <a href="../menu">Back</a>
 </body>
 
