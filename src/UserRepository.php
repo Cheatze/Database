@@ -19,7 +19,7 @@ class UserRepository
      * @param \Cheatze\Library\user $newUser
      * @return void
      */
-    public function addUser(user $newUser)
+    public function addUser(User $newUser)
     {
         $keyValuePairs = $newUser->toArray();
         $this->queryBuilder->insert($keyValuePairs);
@@ -31,22 +31,6 @@ class UserRepository
      */
     public function getUser(string $username)
     {
-        $check = $this->queryBuilder->select(['*'])->where(['Username' => $username])->get();
-        return $check[0];
-    }
-
-    public function getAll()
-    {
-
-    }
-
-    public function removeUser()
-    {
-
-    }
-
-    public function getByCredentials()
-    {
-
+        return $this->queryBuilder->select(['*'])->where(['Username' => $username])->get()[0];
     }
 }

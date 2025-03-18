@@ -8,7 +8,7 @@ class User
     private string $password;
     private string $email;
 
-    public function __construct(string $username, string $password, string $email = "No@gono.nl", int $id = 1)
+    public function __construct(string $username, string $password, string $email, int $id)
     {
         $this->id = $id;
         $this->username = $username;
@@ -59,7 +59,8 @@ class User
         return new User(
             $data['Username'],
             $data['Password'],
-            $data['Email']
+            $data['Email'],
+            $data['Id']
         );
     }
 }

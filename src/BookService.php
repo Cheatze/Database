@@ -30,8 +30,7 @@ class BookService
      */
     public function searchBooks(string $search)
     {
-        $books = $this->bookRepository->searchBooks($search);
-        return $books;
+        return $this->bookRepository->searchBooks($search);
     }
 
 

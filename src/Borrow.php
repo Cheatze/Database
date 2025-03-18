@@ -1,6 +1,5 @@
 <?php
 namespace Cheatze\Library;
-//use Cheatze\Library\BurrowService;
 
 trait Borrow
 {

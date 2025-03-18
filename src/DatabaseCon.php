@@ -68,11 +68,11 @@ class DatabaseCon
     /**
      * Fetches from the database
      * @param string $sql the SQL query to run
-     * @param array $where 
+     * @param array $where
      * @param string $className
      * @return array|null returns an array as result or null if there were none found
      */
-    public function fetch(string $sql, array $where, string $className)
+    public function fetch(string $sql, array $where)
     {
         $statement = $this->db->prepare($sql);
         $statement->execute($where);

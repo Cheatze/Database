@@ -42,7 +42,7 @@ class BorrowService
         $class = get_class($item);
         $thing = basename($class);
         $key = $thing . $item->getId();
-        //$key = intval($key);
+
         $loan = new Loan($key, $user, 21);
         $this->loanRepository->addLoan($loan);
     }
@@ -57,18 +57,13 @@ class BorrowService
     public function getAvailability(string $typeId, string $item): BorrowStatus
     {
         $loan = $this->loanRepository->getLoan($typeId, $item);
-        //$loanAr = $loan->toArray();
+
         if ($loan == null) {
             return BorrowStatus::Available;
         } else {
             return BorrowStatus::OnLoan;
         }
         //compare two date time values to see if item is late
-    }
-
-    public function canCustomerBorrow()
-    {
-
     }
 
 }

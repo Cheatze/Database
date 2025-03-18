@@ -112,6 +112,6 @@ class Boardgame extends Item
      */
     public function getUrl()
     {
-        return "magazine/id=" . $this->getId();
+        return "boardgame/id=" . $this->getId();
     }
 }

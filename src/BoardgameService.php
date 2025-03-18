@@ -30,7 +30,6 @@ class BoardgameService
      */
     public function searchBoardgames(string $search)
     {
-        $boardgames = $this->boardgameRepository->searchBoardgames($search);
-        return $boardgames;
+        return $this->boardgameRepository->searchBoardgames($search);
     }
 }

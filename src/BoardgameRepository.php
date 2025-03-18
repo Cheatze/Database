@@ -56,12 +56,7 @@ class BoardgameRepository
 
     public function searchBoardgames(string $search)
     {
-        $boardgames = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['publisher' => $search])->get();
-        $designers = $this->queryBuilder->select(['*'])->where(['Designer' => $search])->get();
-        $boardgames = array_merge($boardgames, $titles, $publishers, $designers);
-        return $boardgames;
+        return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Designer' => $search])->get();
     }
 
 }

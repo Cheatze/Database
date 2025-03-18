@@ -82,7 +82,7 @@ class AuthenticationController
         $password = $data['password'];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $email = $data['email'];
-        $user = new User($username, $hashed_password, $email);
+        $user = new User($username, $hashed_password, $email, 0);
         $this->authenticationService->register($user);
         include_once "html/login.html";
     }

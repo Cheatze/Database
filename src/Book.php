@@ -32,8 +32,7 @@ class Book extends Item implements Borrowable
 
     public function getAuthorName()
     {
-        $name = $this->author->getName();
-        return $name;
+        return $this->author->getName();
     }
 
     public function getIsbn()

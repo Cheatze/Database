@@ -51,7 +51,7 @@ class QueryBuilder
     }
 
     /**
-     * Sets the WHERE part of the query 
+     * Sets the WHERE part of the query
      * @param mixed $keyValuePairs
      * @return static
      */
@@ -81,7 +81,7 @@ class QueryBuilder
             $sql .= ' OR ' . implode(' OR ', array_map(fn($key) => "$key = :$key", array_keys($this->or)));
         }
         $whereOr = array_merge($this->where, $this->or);
-        $result = $this->databaseCon->fetch($sql, array_values($whereOr), $this->className);
+        $result = $this->databaseCon->fetch($sql, array_values($whereOr));
         if ($result == null) {
             return [];
         }

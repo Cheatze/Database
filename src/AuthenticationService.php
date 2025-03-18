@@ -13,7 +13,7 @@ class AuthenticationService
     }
 
     /**
-     * 
+     *
      * Adds a user to the users table with the data of the given User object
      * @param \Cheatze\Library\User $user
      * @return void
@@ -37,11 +37,6 @@ class AuthenticationService
         } else {
             return $check;
         }
-    }
-
-    public function logout()
-    {
-
     }
 
     /**

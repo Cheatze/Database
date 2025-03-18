@@ -4,7 +4,7 @@ namespace Cheatze\Library;
 /**
  * BookRepository
  * Contains the book array and deals with it.
- * Adds, gets all, filters by id, returns by id, removes by id, checks for id 
+ * Adds, gets all, filters by id, returns by id, removes by id, checks for id
  */
 class BookRepository
 {
@@ -49,10 +49,9 @@ class BookRepository
     public function filterById(int $chosenAuthorId)
     {
         $books = $this->queryBuilder->select(['*'])->get();
-        $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
+        return array_filter($books, function ($book) use ($chosenAuthorId) {
             return $book->getAuthor()->getId() === $chosenAuthorId;
         });
-        return $filteredBooks;
 
     }
 
@@ -88,12 +87,7 @@ class BookRepository
      */
     public function searchBooks(string $search)
     {
-        $books = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
-        $authors = $this->queryBuilder->select(['*'])->where(['Author' => $search])->get();
-        $books = array_merge($books, $titles, $publishers, $authors);
-        return $books;
+        return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Author' => $search])->get();
     }
 
 }
