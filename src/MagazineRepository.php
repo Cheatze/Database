@@ -62,12 +62,14 @@ class MagazineRepository
      */
     public function searchMagazines(string $search)
     {
-        $magazines = [];
-        $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
-        $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
-        $editors = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
-        $magazines = array_merge($magazines, $titles, $publishers, $editors);
-        return $magazines;
+        // $magazines = [];
+        // $titles = $this->queryBuilder->select(['*'])->where(['Title' => $search])->get();
+        // $publishers = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+        // $editors = $this->queryBuilder->select(['*'])->where(['Publisher' => $search])->get();
+        // $magazines = array_merge($magazines, $titles, $publishers, $editors);
+        // return $magazines;
+
+        return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search,'Editor' => $search])->get();
 
         //So with 'or' this can all go on one line
     }

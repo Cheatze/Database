@@ -10,7 +10,8 @@ class QueryBuilder
     private DatabaseCon $databaseCon;
     private array $select = ['*'];
     private array $where = [];
-    
+    private array $or = [];
+
     private string $className;
 
     /**
@@ -60,6 +61,12 @@ class QueryBuilder
         return $this;
     }
 
+    public function or($keyValuePairs): QueryBuilder
+    {
+        $this->or = $keyValuePairs;
+        return $this;
+    }
+
     /**Change to handle a null return
      * Retrieves stuff from the database
      * @return array|null
@@ -70,7 +77,11 @@ class QueryBuilder
         if ($this->where) {
             $sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         }
-        $result = $this->databaseCon->fetch($sql, array_values($this->where), $this->className);
+        if ($this->or) {
+            $sql .= ' OR ' . implode(' OR ', array_map(fn($key) => "$key = :$key", array_keys($this->or)));
+        }
+        $whereOr = array_merge($this->where, $this->or);
+        $result = $this->databaseCon->fetch($sql, array_values($whereOr), $this->className);
         if ($result == null) {
             return [];
         }
