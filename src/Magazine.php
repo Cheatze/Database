@@ -30,7 +30,7 @@ class Magazine extends Item implements Borrowable
         $this->publicationDate = $publicationDate;
         $this->occurrence = $occurrence;
         $this->id = $id;
-        $this->burrowService = new BorrowService();
+        $this->borrowService = new BorrowService();
     }
 
     public function getEditor()

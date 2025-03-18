@@ -81,35 +81,35 @@ class Router
 {
     // Array of all paths
     private array $routes = [
-        ['get', 'book/:id', 'show'],
-        ['get', 'index', 'index'],
-        ['get', '', 'menu'],
-        ['post', 'book', 'delete'],
-        ['get', 'author', 'showAuthors'],
-        ['get', 'author/:id', 'showByAuthor'],
-        ['get', 'menu', 'menu'],
-        ['get', 'form', 'form'],
-        ['post', 'add', 'add'],
-        ['get', 'magazineIndex', 'magazineIndex'],
-        ['get', 'magazine/:id', 'showMagazine'],
-        ['get', 'magazineForm', 'magazineForm'],
-        ['post', 'addMagazine', 'addMagazine'],
-        ['post', 'magazine', 'deleteMagazine'],
-        ['get', 'boardgameIndex', 'boardgameIndex'],
-        ['get', 'boardgame/:id', 'showBoardgame'],
-        ['get', 'boardgameForm', 'boardgameForm'],
-        ['post', 'addBoardgame', 'addBoardgame'],
-        ['post', 'boardgame', 'deleteBoardgame'],
-        ['get', 'itemindex', 'showAllItems'],
-        ['get', 'itemsearch', 'itemSearchForm'],
-        ['post', 'search', 'itemSearch'],
+        ['get', 'book/:id', 'bookController', 'show'],
+        ['get', 'index', 'bookController', 'index'],
+        ['get', '', 'mainController', 'menu'],
+        ['post', 'book', 'bookController', 'delete'],
+        ['get', 'author', 'bookController', 'showAuthors'],
+        ['get', 'author/:id', 'bookController', 'showByAuthor'],
+        ['get', 'menu', 'mainController', 'menu'],
+        ['get', 'form', 'bookController', 'form'],
+        ['post', 'add', 'bookController', 'add'],
+        ['get', 'magazineIndex', 'magazineController', 'magazineIndex'],
+        ['get', 'magazine/:id', 'magazineController', 'showMagazine'],
+        ['get', 'magazineForm', 'magazineController', 'magazineForm'],
+        ['post', 'addMagazine', 'magazineController', 'addMagazine'],
+        ['post', 'magazine', 'magazineController', 'deleteMagazine'],
+        ['get', 'boardgameIndex', 'boardgameController', 'boardgameIndex'],
+        ['get', 'boardgame/:id', 'boardgameController', 'showBoardgame'],
+        ['get', 'boardgameForm', 'boardgameController', 'boardgameForm'],
+        ['post', 'addBoardgame', 'boardgameController', 'addBoardgame'],
+        ['post', 'boardgame', 'boardgameController', 'deleteBoardgame'],
+        ['get', 'itemindex', 'itemController', 'showAllItems'],
+        ['get', 'itemsearch', 'itemController', 'itemSearchForm'],
+        ['post', 'search', 'itemController', 'itemSearch'],
         ['get', 'registrationPage', 'showRegistration'],
-        ['get', 'loginPage', 'showLogin'],
-        ['post', 'register', 'register'],
-        ['post', 'login', 'login'],
-        ['get', 'logout', 'logout'],
-        ['post', 'borrow', 'borrowItem'],
-        ['post', 'return', 'returnItem'],
+        ['get', 'loginPage', 'authenticationController', 'showLogin'],
+        ['post', 'register', 'authenticationController', 'register'],
+        ['post', 'login', 'authenticationController', 'login'],
+        ['get', 'logout', 'authenticationController', 'logout'],
+        ['post', 'borrow', 'loanController', 'borrowItem'],
+        ['post', 'return', 'loanController', 'returnItem'],
     ];
 
     private array $pathPieces;
@@ -142,37 +142,10 @@ class Router
     public function processRoute(): void
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
+
         foreach ($this->routes as $route) {
-            [$routeMethod, $routePath, $routeAction] = $route;
+            [$routeMethod, $routePath, $class, $routeAction] = $route;
             if ($method === $routeMethod && $this->matchRoute($routePath)) {
-                if ($routeAction === "magazineIndex") {
-                    $this->magazineController->magazineIndex();
-                    return;
-                } elseif ($routeAction === "magazineForm") {
-                    $this->magazineController->magazineForm();
-                    return;
-                } elseif ($routeAction === "boardgameIndex") {
-                    $this->boardgameController->boardgameIndex();
-                    return;
-                } elseif ($routeAction === "boardgameForm") {
-                    $this->boardgameController->boardgameForm();
-                    return;
-                } elseif ($routeAction === "showAllItems") {
-                    $this->itemController->showAllItems();
-                    return;
-                } elseif ($routeAction === "itemSearchForm") {
-                    $this->itemController->itemSearchForm();
-                    return;
-                } elseif ($routeAction === "showRegistration") {
-                    $this->authenticationController->showRegistration();
-                    return;
-                } elseif ($routeAction === "showLogin") {
-                    $this->authenticationController->showLogin();
-                    return;
-                } elseif ($routeAction === "logout") {
-                    $this->authenticationController->logout();
-                    return;
-                }
 
                 if (isset($this->pathPieces[1])) {
                     $string = $this->pathPieces[1];
@@ -180,57 +153,14 @@ class Router
                     $numbersAtEnd = $matches[0];
                     $id = (int) $numbersAtEnd;
 
-                    if ($routeAction === "showMagazine") {
-                        $this->magazineController->showMagazine($id);
-                        return;
-                    } elseif ($routeAction === "showBoardgame") {
-                        $this->boardgameController->showBoardgame($id);
-                        return;
-                    }
-
-                    // Call the method on the BookController instance
-                    $this->bookController->{$routeAction}($id);
-                    return;
-                }
-                if ($routeAction === "addMagazine") {
-                    $this->magazineController->addMagazine($_POST);
-                    return;
-                } elseif ($routeAction === "deleteMagazine") {
-                    $this->magazineController->deleteMagazine($_POST);
-                    return;
-                } elseif ($routeAction === "addBoardgame") {
-                    $this->boardgameController->addBoardgame($_POST);
-                    return;
-                } elseif ($routeAction === "deleteBoardgame") {
-                    $this->boardgameController->deleteBoardgame($_POST);
-                    return;
-                } elseif ($routeAction === "itemSearch") {
-                    $this->itemController->itemSearch($_POST);
-                    return;
-                } elseif ($routeAction === "register") {
-                    $this->authenticationController->register($_POST);
-                    return;
-                } elseif ($routeAction === "login") {
-                    $this->authenticationController->login($_POST);
-                    return;
-                } elseif ($routeAction == "borrowItem") {
-                    $this->loanController->borrowItem($_POST);
-                    return;
-                } elseif ($routeAction == "returnItem") {
-                    $this->loanController->returnItem($_POST);
+                    $this->$class->$routeAction($id);
                     return;
                 }
                 if ($routeMethod == 'post') {
-                    $this->bookController->{$routeAction}($_POST);
+                    $this->$class->$routeAction($_POST);
                     return;
                 }
-
-                // Call the method on the appropriate controller instance
-                if ($routeAction === 'menu') {
-                    $this->mainController->menu();
-                } else {
-                    $this->bookController->{$routeAction}();
-                }
+                $this->$class->$routeAction();
                 return;
             }
         }

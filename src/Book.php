@@ -22,7 +22,7 @@ class Book extends Item implements Borrowable
         $this->publisher = $publsiher;
         $this->publicationDate = $publicationDate;
         $this->pageCount = $pageCount;
-        $this->burrowService = new BorrowService();
+        $this->borrowService = new BorrowService();
     }
 
     public function getAuthor()
