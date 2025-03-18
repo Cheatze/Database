@@ -27,7 +27,8 @@ class BorrowService
         $id = $item->getId();
         $loan = $this->loanRepository->getLoan($id, $type);
         $remId = $loan->getId();
-        $this->loanRepository->removeLoan($remId);
+        //Make an updateLoan method
+        $this->loanRepository->updateLoan($remId);
     }
 
     /**
@@ -43,7 +44,7 @@ class BorrowService
         $thing = basename($class);
         $key = $thing . $item->getId();
 
-        $loan = new Loan($key, $user, 21);
+        $loan = new Loan($key, $user, '');
         $this->loanRepository->addLoan($loan);
     }
 
@@ -58,6 +59,7 @@ class BorrowService
     {
         $loan = $this->loanRepository->getLoan($typeId, $item);
 
+        //or isset $loan['ReturnDate']? neen getLoan moet aangepast worden
         if ($loan == null) {
             return BorrowStatus::Available;
         } else {

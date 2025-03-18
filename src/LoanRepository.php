@@ -28,7 +28,9 @@ class LoanRepository
     public function getLoan(string $typeId, string $item)
     {
         $itemAndId = $item . $typeId;
-        $check = $this->queryBuilder->select(['*'])->where(['Item' => $itemAndId])->get();
+        //Change to also check if returnDate is set
+        //Now it is only looking for if $itemAndId exists but it also needs to check if ReturnDate is empty
+        $check = $this->queryBuilder->select(['*'])->where(['Item' => $itemAndId, 'ReturnDate' => ''])->get();
         if (empty($check)) {
             return null;
         } else {
@@ -46,6 +48,17 @@ class LoanRepository
     {
         $this->queryBuilder->remove($id);
 
+    }
+
+    //update the loans table entry with the given id to set the returnDate to the current date
+    public function updateLoan(int $id)
+    {
+
+        //$this->queryBuilder->select(['*'])->where(['Item' => $itemAndId])->get();
+        $currentDate = date('Y-m-d');
+        $keyValuePairs = ['ReturnDate' => $currentDate];
+
+        $this->queryBuilder->select(['*'])->where(['Id' => $id])->update($keyValuePairs);
     }
 
 

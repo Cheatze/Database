@@ -87,12 +87,18 @@ class BookController
     public function add($data)
     {
         $bookTitle = $data['title'];
-        foreach ($_SESSION['authors'] as $auth) {
-            if ($auth->getId() == $data['author']) {
-                $author = $auth;
-                break;
-            }
-        }
+        // foreach ($_SESSION['authors'] as $auth) {
+        //     if ($auth->getId() == $data['author']) {
+        //         $author = $auth;
+        //         break;
+        //     }
+        // }
+        // $authorFromForm = $data['author'];
+        $authors = array_filter($_SESSION['authors'], function ($auth) use ($data) {
+            return $data['author'] == $auth->getId();
+        });
+        [$author] = $authors;
+
         $isbn = $data['isbn'];
         $publisher = $data['publisher'];
         $publicationDate = new DateTimeImmutable($data['publicationDate']);

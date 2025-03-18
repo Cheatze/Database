@@ -11,15 +11,15 @@ class Loan
     private string $user; //also an object in the diagram
     private int $term; //How long you can loan something
     private DateTimeImmutable $loanDate;
-    private DateTimeImmutable $returnDate;
+    private string $returnDate;
 
-    public function __construct(string $item, string $user, int $term = 21, DateTimeImmutable $loanDate = new DateTimeImmutable(), DateTimeImmutable $returnDate = new DateTimeImmutable(), int $id = 1)
+    public function __construct(string $item, string $user, string $returnDate, int $term = 21, DateTimeImmutable $loanDate = new DateTimeImmutable(), int $id = 1)
     {
         $this->item = $item;
         $this->user = $user;
         $this->term = $term;
         $this->loanDate = $loanDate ?? new DateTimeImmutable();
-        $this->returnDate = $returnDate ?? new DateTimeImmutable();
+        $this->returnDate = $returnDate;
         $this->id = $id;
     }
 
@@ -58,19 +58,14 @@ class Loan
         return $this->returnDate;
     }
 
-    public function getReturnDateAsString()
-    {
-        return $this->returnDate->format(DATE_ATOM);
-    }
-
     public function toArray()
     {
         return [
             'item' => $this->getItem(),
             'user' => $this->getUser(),
+            'returnDate' => $this->getReturnDate(),
             'term' => $this->getTerm(),
             'loanDate' => $this->getLoanDateAsString(),
-            'returnDate' => $this->getReturnDateAsString(),
         ];
     }
 
@@ -82,14 +77,13 @@ class Loan
     public static function fromArray($data)
     {
         $data['LoanDate'] = new DateTimeImmutable($data['LoanDate']);
-        $data['ReturnDate'] = new DateTimeImmutable($data['ReturnDate']);
 
         return new Loan(
             $data['Item'],
             $data['User'],
+            $data['ReturnDate'],
             $data['Term'],
             $data['LoanDate'],
-            $data['ReturnDate'],
             $data['Id']
         );
     }
