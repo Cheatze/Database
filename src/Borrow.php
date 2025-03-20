@@ -40,14 +40,18 @@ trait Borrow
         return $this->status->name;
     }
 
-    //compare the user who borrowed the item with the current user
-    public function getCompareUsers()
+    /**
+     * Gets the id and class name of the current item
+     * Calls the borrowService with those variables to check if the item is borrowed by the current user
+     * @return string
+     */
+    public function getCanReturn()
     {
         $typeId = $this->getId();
         $class = get_class($this);
         $item = basename($class);
 
-        //return borrowService->getThisUserOrNot($typeId, $item);
+        return $this->borrowService->getCompareUsers($typeId, $item);
 
     }
 

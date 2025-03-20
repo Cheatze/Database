@@ -14,7 +14,7 @@ interface Borrowable
 
     public function getAvailability();
 
-    public function getUserCompare();
+    public function getCanReturn();
 
     public function getTitle();
 }

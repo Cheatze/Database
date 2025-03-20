@@ -48,7 +48,7 @@
         <input type="submit" value="Borrow">
     </form>
     <?php
-    }elseif($book->getAvailability() == 'OnLoan'){
+    }elseif($book->getAvailability() == 'OnLoan' and $book->getCanReturn() == "Yes"){
      ?>
     <form method="POST" action="../return">
         <input type="hidden" name="id" value="<?php echo $book->getId(); ?>">

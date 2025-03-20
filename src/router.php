@@ -28,7 +28,7 @@ class Router
         ['get', 'itemindex', 'itemController', 'showAllItems'],
         ['get', 'itemsearch', 'itemController', 'itemSearchForm'],
         ['post', 'search', 'itemController', 'itemSearch'],
-        ['get', 'registrationPage', 'showRegistration'],
+        ['get', 'registrationPage', 'authenticationController', 'showRegistration'],
         ['get', 'loginPage', 'authenticationController', 'showLogin'],
         ['post', 'register', 'authenticationController', 'register'],
         ['post', 'login', 'authenticationController', 'login'],

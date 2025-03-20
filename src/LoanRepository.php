@@ -28,8 +28,6 @@ class LoanRepository
     public function getLoan(string $typeId, string $item)
     {
         $itemAndId = $item . $typeId;
-        //Change to also check if returnDate is set
-        //Now it is only looking for if $itemAndId exists but it also needs to check if ReturnDate is empty
         $check = $this->queryBuilder->select(['*'])->where(['Item' => $itemAndId, 'ReturnDate' => ''])->get();
         if (empty($check)) {
             return null;
@@ -40,6 +38,24 @@ class LoanRepository
     }
 
     /**
+     * Checks for a loan in the database where the current user is the same as who loaned the item
+     * Returns a loan if one is found or null
+     * @param string $typeId
+     * @param string $item
+     * @param string $user
+     */
+    public function getLoanOfUser(string $typeId, string $item, string $user)
+    {
+        $itemAndId = $item . $typeId;
+        $check = $this->queryBuilder->select(['*'])->where(['Item' => $itemAndId, 'ReturnDate' => '', 'User' => $user])->get();
+        if (empty($check)) {
+            return null;
+        } else {
+            return $check[0];
+        }
+    }
+
+    /**Now unused
      * Removes a loan with a given id
      * @param int $id
      * @return void
@@ -53,8 +69,6 @@ class LoanRepository
     //update the loans table entry with the given id to set the returnDate to the current date
     public function updateLoan(int $id)
     {
-
-        //$this->queryBuilder->select(['*'])->where(['Item' => $itemAndId])->get();
         $currentDate = date('Y-m-d');
         $keyValuePairs = ['ReturnDate' => $currentDate];
 

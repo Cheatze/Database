@@ -68,4 +68,14 @@ class BorrowService
         //compare two date time values to see if item is late
     }
 
+    public function getCompareUsers(string $typeId, string $item)
+    {
+        $user = $this->authenticationService->getAuthenticatedUser();
+        $loan = $this->loanRepository->getLoanOfUser($typeId, $item, $user);
+        if ($loan == null) {
+            return "No";
+        } else {
+            return "Yes";
+        }
+    }
 }
