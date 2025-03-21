@@ -6,33 +6,21 @@ use \DateTimeImmutable;
 class BookController
 {
 
-    public $repository;// = new BookRepository();
-    public $main;// = new MainController();
-
-    //$repos = BookRepository::getObject();
-    //add BookRepository as an attribute and instantiate it in a constructor
-    //private BookRepository $bookRepository;
+    public BookRepository $repository;
 
     public function __construct()
     {
         $this->repository = new BookRepository();
-        $this->main = new MainController();
     }
 
     /**
      * Assigns the books session variable array to $books through the repository and includes index.html
      * @return void
      */
-    public function index()
+    public function index(): void
     {
-        //$repos = BookRepository::getObject();
-        if (isset($_SESSION['books'])) {
-            //$books = BookRepository::getAll();
-            $books = $this->repository->getAll();
-        } else {
-            $books = [];
-        }
-        include_once 'html/index.html';
+        $books = $this->repository->getAll();
+        include_once 'html/bookindex.html';
     }
 
     /**
@@ -40,9 +28,8 @@ class BookController
      * @param int $id
      * @return void
      */
-    public function show(int $id)
+    public function show(int $id): void
     {
-        //$book = BookRepository::returnById($id);
         $book = $this->repository->returnById($id);
         include_once 'html/book.html';
 
@@ -52,11 +39,11 @@ class BookController
      *Removes the book with post id value from the session through the repository and calls the index method
      * @return void
      */
-    public function delete(array $id)
+    public function delete(array $id): void
     {
-        //$id = $_POST["id"];
+
         $id = intval($id['id']);
-        //BookRepository::removeById($id);
+
         $this->repository->removeById($id);
         BookController::index();
     }
@@ -65,10 +52,10 @@ class BookController
      * Assings the session authors array to $authors and includes the auhtor.html
      * @return void
      */
-    public function showAuthors()
+    public function showAuthors(): void
     {
         $authors = $_SESSION['authors'];
-        include_once 'html/author.html';
+        include_once 'html/bookauthor.html';
     }
 
     /**
@@ -76,9 +63,8 @@ class BookController
      * @param mixed $id
      * @return void
      */
-    public function showByAuthor($id)
+    public function showByAuthor($id): void
     {
-        //$books = BookRepository::filterById($id);
         $books = $this->repository->filterById($id);
         include_once 'html/listByAuthor.html';
     }
@@ -87,9 +73,9 @@ class BookController
      * Includes the form for adding books
      * @return void
      */
-    public function form()
+    public function form(): void
     {
-        include_once 'html/form.html';
+        include_once 'html/bookform.html';
     }
 
     /**
@@ -98,32 +84,26 @@ class BookController
      * Calls the index method to return to the list of all books
      * @return void
      */
-    public function add($data)
+    public function add($data): void
     {
-        //Change stuff here
-        // Retrieve form data
         $bookTitle = $data['title'];
-        //$author = $_POST['author'];
-        foreach ($_SESSION['authors'] as $auth) {
-            if ($auth->getId() == $data['author']) {
-                $author = $auth;
-                break;
-            }
-        }
+
+        $authors = array_filter($_SESSION['authors'], function ($auth) use ($data) {
+            return $data['author'] == $auth->getId();
+        });
+        [$author] = $authors;
+
         $isbn = $data['isbn'];
         $publisher = $data['publisher'];
-        //$publicationDate = $data['publicationDate'];
         $publicationDate = new DateTimeImmutable($data['publicationDate']);
-        //$publicationDate = DateTime::createFromFormat('Y-m-d', $data['publishedAt']);
         $pageCount = $data['pageCount'];
         $id = $_SESSION['id'];
 
-        // Create a new Book object, somehow always gives id of 1
+        // Create a new Book object
         $newBook = new Book($bookTitle, $author, $isbn, $publisher, $publicationDate, $pageCount, $id);
 
-        //BookRepository::add($newBook);
         $this->repository->add($newBook);
-        //BookController::index();
+
         $this->index();
     }
 }

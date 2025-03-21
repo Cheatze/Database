@@ -10,6 +10,8 @@ class QueryBuilder
     private DatabaseCon $databaseCon;
     private array $select = ['*'];
     private array $where = [];
+    private array $or = [];
+
     private string $className;
 
     /**
@@ -22,7 +24,6 @@ class QueryBuilder
     {
         $this->databaseCon = DatabaseCon::getInstance();
         $this->className = $className;
-        //$className = Cheatze\Library\Books
         $this->table = $table ?? strtolower($className) . 's';
     }
 
@@ -49,7 +50,7 @@ class QueryBuilder
     }
 
     /**
-     * Sets the WHERE part of the query 
+     * Sets the WHERE part of the query
      * @param mixed $keyValuePairs
      * @return static
      */
@@ -59,7 +60,13 @@ class QueryBuilder
         return $this;
     }
 
-    /**
+    public function or($keyValuePairs): QueryBuilder
+    {
+        $this->or = $keyValuePairs;
+        return $this;
+    }
+
+    /**Change to handle a null return
      * Retrieves stuff from the database
      * @return array|null
      */
@@ -69,7 +76,17 @@ class QueryBuilder
         if ($this->where) {
             $sql .= ' WHERE ' . implode(' AND ', array_map(fn($key) => "$key = :$key", array_keys($this->where)));
         }
-        return array_map(fn($item) => $this->className::fromArray($item), $this->databaseCon->fetch($sql, array_values($this->where), $this->className));
+        if ($this->or) {
+            $sql .= ' OR ' . implode(' OR ', array_map(fn($key) => "$key = :$key", array_keys($this->or)));
+        }
+        $whereOr = array_merge($this->where, $this->or);
+        $result = $this->databaseCon->fetch($sql, array_values($whereOr));
+        if ($result == null) {
+            return [];
+        }
+        return array_map(fn($item) => $this->className::fromArray($item), $result);
+
+
     }
 
     /**
@@ -102,7 +119,9 @@ class QueryBuilder
      */
     public function remove(int $id)
     {
-        $sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $sql = "DELETE FROM $this->table WHERE id = :id";
         return $this->databaseCon->delete($sql, ['id' => $id]);
     }
+
+
 }

@@ -17,34 +17,38 @@ class Author
         $this->birthDate = $birthDate;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
-    public function getName()
+    public function getName(): string
     {
         $fName = $this->firstName;
         $lName = $this->lastName;
         return "$fName $lName";
     }
-    public function getDateOfBirth()
+    public function getDateOfBirth(): DateTimeImmutable
     {
         return $this->birthDate;
     }
-    public function getDateOfBirthAsString()
+    public function getDateOfBirthAsString(): string
     {
         return $this->birthDate->format("Y-m-d");
     }
 
-    public function toArray()
+    /**
+     * Returns an array from the data of the author object
+     * @return array{Birthdate: string, Firstname: string, Lastname: string}
+     */
+    public function toArray(): array
     {
         return [
             'Firstname' => $this->getFirstName(),

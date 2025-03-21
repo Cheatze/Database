@@ -4,30 +4,31 @@ namespace Cheatze\Library;
 /**
  * BookRepository
  * Contains the book array and deals with it.
- * Adds, gets all, filters by id, returns by id, removes by id, checks for id 
+ * Adds, gets all, filters by id, returns by id, removes by id, checks for id
  */
 class BookRepository
 {
 
     private QueryBuilder $queryBuilder;
 
+    /**
+     * Instantiates the querybuilder with the book class and table
+     */
     public function __construct()
     {
         $this->queryBuilder = new QueryBuilder(Book::class, 'books');
     }
 
     /**
-     * Add the given book object to the session array
+     * Add the given book object to the database
      * @param Book $newBook
      * @return void
      */
-    public function add(Book $newBook)
+    public function add(Book $newBook): void
     {
         $keyValuePairs = $newBook->toArray();
 
         $this->queryBuilder->insert($keyValuePairs);
-        $_SESSION['books'][] = $newBook;
-        $_SESSION['id'] += 1;
     }
 
     /**
@@ -35,27 +36,23 @@ class BookRepository
      * @param none
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
-        $books = $this->queryBuilder->select(['*'])->get();
-        //$books = $_SESSION['books'];
-        return $books;
+        return $books = $this->queryBuilder->select(['*'])->get();
     }
 
     /**
-     * Filters the books session array by author id and returns filtered array
+     * Filters the books array by author id and returns filtered array
      * @param int $chosenAuthorId
      * @return array
      */
-    public function filterById(int $chosenAuthorId)
+    public function filterById(int $chosenAuthorId): array
     {
-
         $books = $this->queryBuilder->select(['*'])->get();
-
-        $filteredBooks = array_filter($books, function ($book) use ($chosenAuthorId) {
+        return array_filter($books, function ($book) use ($chosenAuthorId) {
             return $book->getAuthor()->getId() === $chosenAuthorId;
         });
-        return $filteredBooks;
+
     }
 
     /**
@@ -63,7 +60,7 @@ class BookRepository
      * @param int $id
      * @return array
      */
-    public function returnById(int $id)
+    public function returnById(int $id): Book|null
     {
         $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
@@ -76,31 +73,21 @@ class BookRepository
      * @param int $id
      * @return void
      */
-    public function removeById(int $id)
+    public function removeById(int $id): void
     {
 
         $result = $this->queryBuilder->remove($id);
-        if ($result) {
-            echo "User  deleted successfully.";
-        } else {
-            echo "Failed to delete user.";
-        }
 
     }
 
-    //Unused?
-    //Checks if a book exists at a certain index and returns bool
-    public function checkForId(int $id)
+    /**
+     * Searches the books database table on title publisher and author and returns an array of results
+     * @param string $search
+     * @return array
+     */
+    public function searchBooks(string $search): array
     {
-
-        $book = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
-
-        if (!empty($book)) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Author' => $search])->get();
     }
 
 }

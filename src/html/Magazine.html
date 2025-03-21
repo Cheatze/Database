@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Magazine details</title>
+</head>
+
+<body>
+    <div>
+        <h3>
+            <?php echo $magazine->getTitle(); ?>
+        </h3>
+        <p><strong>Editor:</strong>
+            <?php echo $magazine->getEditor(); ?>
+        </p>
+        <p><strong>ISSN:</strong>
+            <?php echo $magazine->getIssn(); ?>
+        </p>
+        <p><strong>Publisher:</strong>
+            <?php echo $magazine->getPublisher(); ?>
+        </p>
+        <p><strong>Publication Date:</strong>
+            <?php echo $magazine->getPublicationDateAsString(); ?>
+        </p>
+        <p><strong>Occurrence:</strong>
+            <?php echo $magazine->getOccurrence(); ?>
+        </p>
+        <p><strong>Availability:</strong>
+            <?php echo $magazine->getAvailability('magazine'); ?>
+        </p>
+    </div><!--Delete button that calls the path to the remove method with the id of the current $book object-->
+    <form method="POST" action='../magazine' onsubmit="return confirm('Do you really want to delete this magazine?')">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="submit" value="Delete">
+    </form>
+    <?php
+    if($magazine->getAvailability() == 'Available'){
+    ?>
+    <form method="POST" action="../borrow">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="hidden" name="type" value="<?php echo get_class($magazine); ?>">
+        <input type="submit" value="Borrow">
+    </form>
+    <?php
+        }elseif($magazine->getAvailability() == 'OnLoan' and $magazine>getCanReturn() == true){
+             ?>
+    <form method="POST" action="../return">
+        <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">
+        <input type="hidden" name="type" value="<?php echo get_class($magazine); ?>">
+        <input type="submit" value="Return">
+    </form>
+    <?php
+            }
+            ?>
+    <a href="../menu">Back</a>
+</body>
+
+</html>

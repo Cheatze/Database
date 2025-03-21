@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <title>Library entrance</title>
@@ -6,17 +7,16 @@
 
 <body>
     <h1>Library entrance</h1>
-    <ul>
-        <li>
-            <a href="index">Show all</a>
-        </li>
-        <li>
-            <a href="author">Show by author</a>
-        </li>
-        <li>
-            <a href="form">Add a book</a>
-        </li>
-    </ul>
+    <div>
+        <a href="loginPage">Login</a> <br>
+        <a href="registrationPage">Register</a><br>
+        <a href="logout">Logout</a>
+    </div>
+    <?php 
+    if($_SESSION['Login']==true){
+        include_once "html/ItemLinks.html";
+    }
+    ?>
 </body>
 
 </html>

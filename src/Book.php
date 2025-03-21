@@ -1,21 +1,20 @@
 <?php
 namespace Cheatze\Library;
 use \DateTimeImmutable;
-class Book
+use Cheatze\Library\Item;
+class Book extends Item implements Borrowable
 {
-    private static int $count = 0;
-    private int $id;
-    private string $title;
+    use Borrow;
+
     private Author $author;
     private string $isbn;
     private string $publisher;
 
-    private DateTimeImmutable $publicationDate; //add type
+    private DateTimeImmutable $publicationDate;
     private int $pageCount;
 
     public function __construct(string $title, Author $author, string $isbn, string $publsiher, DateTimeImmutable $publicationDate, int $pageCount, int $id)
     {
-        //$this->id = ++static::$count;
         $this->id = $id;
         $this->title = $title;
         $this->author = $author;
@@ -23,56 +22,49 @@ class Book
         $this->publisher = $publsiher;
         $this->publicationDate = $publicationDate;
         $this->pageCount = $pageCount;
+        $this->borrowService = new BorrowService();
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getAuthor()
+    public function getAuthor(): Author
     {
         return $this->author;
     }
 
-    public function getAuthorName()
+    public function getAuthorName(): string
     {
-        $name = $this->author->getName();
-        return $name;
+        return $this->author->getName();
     }
 
-    public function getIsbn()
+    public function getIsbn(): string
     {
         return $this->isbn;
     }
 
-    public function getPublisher()
+    public function getPublisher(): string
     {
         return $this->publisher;
     }
 
-    public function getPublicationDate()
+    public function getPublicationDate(): DateTimeImmutable
     {
         return $this->publicationDate;
     }
 
-    public function getPublicationDateAsString()
+    public function getPublicationDateAsString(): string
     {
         return $this->publicationDate->format(DATE_ATOM);
     }
 
-    public function getPagecount()
+    public function getPagecount(): int
     {
         return $this->pageCount;
     }
 
-    //Add a toarray function that returns a associative array
-    public function toArray()
+    /**
+     * Returns an array from the data of the Book object
+     * @return array{Author: string, ISBN: string, PageCount: int, PublicationDate: string, Publisher: string, Title: string}
+     */
+    public function toArray(): array
     {
         return [
             'Title' => $this->getTitle(),
@@ -91,7 +83,7 @@ class Book
      * @param mixed $data
      * @return Book
      */
-    public static function fromArray($data)
+    public static function fromArray($data): Book
     {
         foreach ($_SESSION['authors'] as $author) {
             if ($author->getName() == $data['Author']) {
@@ -109,6 +101,25 @@ class Book
             $data['PageCount'],
             $data['Id']
         );
+    }
+
+    public function getOverviewText(): string
+    {
+        return sprintf(
+            "Title: %s, published by: %s, written by: %s",
+            $this->getTitle(),
+            $this->getPublisher(),
+            $this->getAuthorName()
+        );
+    }
+
+    /**
+     * Returns the get part of the url for the itemIndex list
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return "book/id=" . $this->getId();
     }
 
 }
