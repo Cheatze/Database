@@ -18,7 +18,7 @@ class BoardgameController
      * Retrieves all boardgames from the database and includes the boardgame list html
      * @return void
      */
-    public function boardgameIndex()
+    public function boardgameIndex(): void
     {
         $boardgames = $this->repository->getAllBoardgames();
         include_once 'html/boardgameindex.html';
@@ -29,7 +29,7 @@ class BoardgameController
      * @param int $id
      * @return void
      */
-    public function showBoardgame(int $id)
+    public function showBoardgame(int $id): void
     {
         $boardgame = $this->repository->getBoardgameById($id);
         include_once 'html/Boardgame.html';
@@ -40,7 +40,7 @@ class BoardgameController
      * @param array $id
      * @return void
      */
-    public function deleteBoardgame(array $id)
+    public function deleteBoardgame(array $id): void
     {
         $id = intval($id['id']);
 
@@ -52,7 +52,7 @@ class BoardgameController
      * Includes the boardgame form html
      * @return void
      */
-    public function boardgameForm()
+    public function boardgameForm(): void
     {
         include_once 'html/boardgameform.html';
     }
@@ -62,7 +62,7 @@ class BoardgameController
      * @param mixed $data
      * @return void
      */
-    public function addBoardgame($data)
+    public function addBoardgame($data): void
     {
         $title = $data['title'];
         $designer = $data['Designer'];

@@ -5,12 +5,12 @@ abstract class Item
     protected int $id;
     protected string $title;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }

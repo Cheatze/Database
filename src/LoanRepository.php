@@ -16,7 +16,7 @@ class LoanRepository
      * @param \Cheatze\Library\Loan $loan
      * @return void
      */
-    public function addLoan(Loan $loan)
+    public function addLoan(Loan $loan): void
     {
         $this->queryBuilder->insert($loan->toArray());
     }
@@ -55,24 +55,14 @@ class LoanRepository
         }
     }
 
-    /**Now unused
-     * Removes a loan with a given id
+    /**
+     * update the loans table entry with the given id to set the returnDate to the current date
      * @param int $id
      * @return void
      */
-    public function removeLoan(int $id)
+    public function updateLoan(int $id): void
     {
-        $this->queryBuilder->remove($id);
-
-    }
-
-    //update the loans table entry with the given id to set the returnDate to the current date
-    public function updateLoan(int $id)
-    {
-        $currentDate = date('Y-m-d');
-        $keyValuePairs = ['ReturnDate' => $currentDate];
-
-        $this->queryBuilder->select(['*'])->where(['Id' => $id])->update($keyValuePairs);
+        $this->queryBuilder->select(['*'])->where(['Id' => $id])->update(['ReturnDate' => date('Y-m-d')]);
     }
 
 

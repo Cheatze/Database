@@ -42,7 +42,7 @@
         <input type="submit" value="Borrow">
     </form>
     <?php
-        }elseif($magazine->getAvailability() == 'OnLoan' and $magazine>getCanReturn() == "Yes"){
+        }elseif($magazine->getAvailability() == 'OnLoan' and $magazine>getCanReturn() == true){
              ?>
     <form method="POST" action="../return">
         <input type="hidden" name="id" value="<?php echo $magazine->getId(); ?>">

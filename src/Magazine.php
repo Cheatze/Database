@@ -33,37 +33,37 @@ class Magazine extends Item implements Borrowable
         $this->borrowService = new BorrowService();
     }
 
-    public function getEditor()
+    public function getEditor(): string
     {
         return $this->editor;
     }
 
-    public function getIssn()
+    public function getIssn(): string
     {
         return $this->issn;
     }
 
-    public function getPublisher()
+    public function getPublisher(): string
     {
         return $this->publisher;
     }
 
-    public function getPublicationDate()
+    public function getPublicationDate(): DateTimeImmutable
     {
         return $this->publicationDate;
     }
 
-    public function getPublicationDateAsString()
+    public function getPublicationDateAsString(): string
     {
         return $this->publicationDate->format(DATE_ATOM);
     }
 
-    public function getOccurrence()
+    public function getOccurrence(): string
     {
         return $this->occurrence;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'Title' => $this->getTitle(),
@@ -75,7 +75,7 @@ class Magazine extends Item implements Borrowable
         ];
     }
 
-    public static function fromArray($data)
+    public static function fromArray($data): Magazine
     {
         $data['PublicationDate'] = new DateTimeImmutable($data['PublicationDate']);
         return new Magazine(
@@ -89,7 +89,7 @@ class Magazine extends Item implements Borrowable
         );
     }
 
-    public function getOverviewText()
+    public function getOverviewText(): string
     {
         return sprintf(
             "Title: %s, published by: %s, edited by: %s",
@@ -99,7 +99,7 @@ class Magazine extends Item implements Borrowable
         );
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         return 'magazine/id=' . $this->getId();
     }

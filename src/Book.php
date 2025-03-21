@@ -10,7 +10,7 @@ class Book extends Item implements Borrowable
     private string $isbn;
     private string $publisher;
 
-    private DateTimeImmutable $publicationDate; //add type
+    private DateTimeImmutable $publicationDate;
     private int $pageCount;
 
     public function __construct(string $title, Author $author, string $isbn, string $publsiher, DateTimeImmutable $publicationDate, int $pageCount, int $id)
@@ -25,37 +25,37 @@ class Book extends Item implements Borrowable
         $this->borrowService = new BorrowService();
     }
 
-    public function getAuthor()
+    public function getAuthor(): Author
     {
         return $this->author;
     }
 
-    public function getAuthorName()
+    public function getAuthorName(): string
     {
         return $this->author->getName();
     }
 
-    public function getIsbn()
+    public function getIsbn(): string
     {
         return $this->isbn;
     }
 
-    public function getPublisher()
+    public function getPublisher(): string
     {
         return $this->publisher;
     }
 
-    public function getPublicationDate()
+    public function getPublicationDate(): DateTimeImmutable
     {
         return $this->publicationDate;
     }
 
-    public function getPublicationDateAsString()
+    public function getPublicationDateAsString(): string
     {
         return $this->publicationDate->format(DATE_ATOM);
     }
 
-    public function getPagecount()
+    public function getPagecount(): int
     {
         return $this->pageCount;
     }
@@ -64,7 +64,7 @@ class Book extends Item implements Borrowable
      * Returns an array from the data of the Book object
      * @return array{Author: string, ISBN: string, PageCount: int, PublicationDate: string, Publisher: string, Title: string}
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'Title' => $this->getTitle(),
@@ -83,7 +83,7 @@ class Book extends Item implements Borrowable
      * @param mixed $data
      * @return Book
      */
-    public static function fromArray($data)
+    public static function fromArray($data): Book
     {
         foreach ($_SESSION['authors'] as $author) {
             if ($author->getName() == $data['Author']) {
@@ -103,7 +103,7 @@ class Book extends Item implements Borrowable
         );
     }
 
-    public function getOverviewText()
+    public function getOverviewText(): string
     {
         return sprintf(
             "Title: %s, published by: %s, written by: %s",
@@ -117,7 +117,7 @@ class Book extends Item implements Borrowable
      * Returns the get part of the url for the itemIndex list
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return "book/id=" . $this->getId();
     }

@@ -17,7 +17,7 @@ class AuthenticationController
      * Shows the login page
      * @return void
      */
-    public function showLogin()
+    public function showLogin(): void
     {
         include_once "html/login.html";
     }
@@ -26,7 +26,7 @@ class AuthenticationController
      * Shows the registration page
      * @return void
      */
-    public function showRegistration()
+    public function showRegistration(): void
     {
         include_once "html/register.html";
     }
@@ -40,7 +40,7 @@ class AuthenticationController
      * @param mixed $data
      * @return void
      */
-    public function login($data)
+    public function login($data): void
     {
         $username = $data['username'];
         $password = $data['password'];//
@@ -63,7 +63,7 @@ class AuthenticationController
      * Logs the user out by unsetting the login session variable and returns view back to the menu
      * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         echo "Logged out!";
         $_SESSION['Login'] = false;
@@ -76,7 +76,7 @@ class AuthenticationController
      * @param mixed $data
      * @return void
      */
-    public function register($data)
+    public function register($data): void
     {
         $username = $data['username'];
         $password = $data['password'];

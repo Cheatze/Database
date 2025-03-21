@@ -20,14 +20,14 @@ class BorrowService
      * @param \Cheatze\Library\Borrowable $item
      * @return void
      */
-    public function returnItem(Borrowable $item)
+    public function returnItem(Borrowable $item): void
     {
         $class = get_class($item);
         $type = basename($class);
         $id = $item->getId();
         $loan = $this->loanRepository->getLoan($id, $type);
         $remId = $loan->getId();
-        //Make an updateLoan method
+
         $this->loanRepository->updateLoan($remId);
     }
 
@@ -37,7 +37,7 @@ class BorrowService
      * @param \Cheatze\Library\Borrowable $item
      * @return void
      */
-    public function borrowItem(Borrowable $item)
+    public function borrowItem(Borrowable $item): void
     {
         $user = $this->authenticationService->getAuthenticatedUser();
         $class = get_class($item);
@@ -59,23 +59,24 @@ class BorrowService
     {
         $loan = $this->loanRepository->getLoan($typeId, $item);
 
-        //or isset $loan['ReturnDate']? neen getLoan moet aangepast worden
         if ($loan == null) {
             return BorrowStatus::Available;
         } else {
             return BorrowStatus::OnLoan;
         }
-        //compare two date time values to see if item is late
     }
 
-    public function getCompareUsers(string $typeId, string $item)
+    /**
+     * Returns true if a loan record exists where the current user is the one who borrowed the item
+     * Returns false if not
+     * @param string $typeId
+     * @param string $item
+     * @return bool
+     */
+    public function hasBeenBorrowedByUser(string $typeId, string $item): bool
     {
         $user = $this->authenticationService->getAuthenticatedUser();
         $loan = $this->loanRepository->getLoanOfUser($typeId, $item, $user);
-        if ($loan == null) {
-            return "No";
-        } else {
-            return "Yes";
-        }
+        return $loan !== null;
     }
 }

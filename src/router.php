@@ -64,6 +64,10 @@ class Router
         $this->pathPieces = explode('/', substr($pathInfo, 1));
     }
 
+    /**
+     * Goes through the routes array and calls the class and method that are same as the requested path
+     * @return void
+     */
     public function processRoute(): void
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);

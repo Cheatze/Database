@@ -17,7 +17,7 @@ class MagazineService
      * Retrieves all magazines from the database
      * @return array|null
      */
-    public function getAllMagazines()
+    public function getAllMagazines(): array|null
     {
         return $this->magazineRepository->getAllMagazines();
     }
@@ -27,7 +27,7 @@ class MagazineService
      * @param string $search
      * @return array
      */
-    public function searchMagazines(string $search)
+    public function searchMagazines(string $search): array
     {
         return $this->magazineRepository->searchMagazines($search);
     }

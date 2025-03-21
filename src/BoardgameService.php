@@ -17,7 +17,7 @@ class BoardgameService
      * Gets all boardgames from the database
      * @return array|null
      */
-    public function getAllBoardgames()
+    public function getAllBoardgames(): array|null
     {
         return $boardgames = $this->boardgameRepository->getAllBoardgames();
     }
@@ -28,7 +28,7 @@ class BoardgameService
      * @param string $search
      * @return array
      */
-    public function searchBoardgames(string $search)
+    public function searchBoardgames(string $search): array
     {
         return $this->boardgameRepository->searchBoardgames($search);
     }

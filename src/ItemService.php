@@ -20,7 +20,7 @@ class ItemService
      * Retuns every item from the three database tables and merges the resulting arrays and returns the merged array
      * @return array
      */
-    public function getAllItems()
+    public function getAllItems(): array
     {
         $books = $this->bookService->getAll();
         $magazines = $this->magazineService->getAllMagazines();
@@ -33,7 +33,7 @@ class ItemService
      * @param mixed $data
      * @return array
      */
-    public function searchAllItems($data)
+    public function searchAllItems($data): array
     {
         $search = $data['item'];
         $items = [];

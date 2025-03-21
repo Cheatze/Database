@@ -18,7 +18,7 @@ class MagazineRepository
      * @param \Cheatze\Library\Magazine $newMagazine
      * @return void
      */
-    public function addMagazine(Magazine $newMagazine)
+    public function addMagazine(Magazine $newMagazine): void
     {
         $keyValuePairs = $newMagazine->toArray();
         $this->queryBuilder->insert($keyValuePairs);
@@ -28,10 +28,9 @@ class MagazineRepository
      * Retrieves all magazines from the database
      * @return array|null
      */
-    public function getAllMagazines()
+    public function getAllMagazines(): array
     {
         return $this->queryBuilder->select(['*'])->get();
-
     }
 
     /**
@@ -50,7 +49,7 @@ class MagazineRepository
      * @param int $id
      * @return void
      */
-    public function removeMagazineById(int $id)
+    public function removeMagazineById(int $id): void
     {
         $this->queryBuilder->remove($id);
     }
@@ -60,7 +59,7 @@ class MagazineRepository
      * @param string $search
      * @return array
      */
-    public function searchMagazines(string $search)
+    public function searchMagazines(string $search): array
     {
         return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Editor' => $search])->get();
     }

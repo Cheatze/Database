@@ -18,7 +18,7 @@ class BookService
      * @param none
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $books = $this->bookRepository->getAll();
     }
@@ -28,7 +28,7 @@ class BookService
      * @param string $search
      * @return array
      */
-    public function searchBooks(string $search)
+    public function searchBooks(string $search): array
     {
         return $this->bookRepository->searchBooks($search);
     }

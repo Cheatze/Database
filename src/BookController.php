@@ -6,7 +6,7 @@ use \DateTimeImmutable;
 class BookController
 {
 
-    public BookRepository $repository;// = new BookRepository();
+    public BookRepository $repository;
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class BookController
      * Assigns the books session variable array to $books through the repository and includes index.html
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $books = $this->repository->getAll();
         include_once 'html/bookindex.html';
@@ -28,7 +28,7 @@ class BookController
      * @param int $id
      * @return void
      */
-    public function show(int $id)
+    public function show(int $id): void
     {
         $book = $this->repository->returnById($id);
         include_once 'html/book.html';
@@ -39,7 +39,7 @@ class BookController
      *Removes the book with post id value from the session through the repository and calls the index method
      * @return void
      */
-    public function delete(array $id)
+    public function delete(array $id): void
     {
 
         $id = intval($id['id']);
@@ -52,7 +52,7 @@ class BookController
      * Assings the session authors array to $authors and includes the auhtor.html
      * @return void
      */
-    public function showAuthors()
+    public function showAuthors(): void
     {
         $authors = $_SESSION['authors'];
         include_once 'html/bookauthor.html';
@@ -63,7 +63,7 @@ class BookController
      * @param mixed $id
      * @return void
      */
-    public function showByAuthor($id)
+    public function showByAuthor($id): void
     {
         $books = $this->repository->filterById($id);
         include_once 'html/listByAuthor.html';
@@ -73,7 +73,7 @@ class BookController
      * Includes the form for adding books
      * @return void
      */
-    public function form()
+    public function form(): void
     {
         include_once 'html/bookform.html';
     }
@@ -84,16 +84,10 @@ class BookController
      * Calls the index method to return to the list of all books
      * @return void
      */
-    public function add($data)
+    public function add($data): void
     {
         $bookTitle = $data['title'];
-        // foreach ($_SESSION['authors'] as $auth) {
-        //     if ($auth->getId() == $data['author']) {
-        //         $author = $auth;
-        //         break;
-        //     }
-        // }
-        // $authorFromForm = $data['author'];
+
         $authors = array_filter($_SESSION['authors'], function ($auth) use ($data) {
             return $data['author'] == $auth->getId();
         });

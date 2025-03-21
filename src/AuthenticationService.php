@@ -18,7 +18,7 @@ class AuthenticationService
      * @param \Cheatze\Library\User $user
      * @return void
      */
-    public function register(User $user)
+    public function register(User $user): void
     {
         $this->userRepository->addUser($user);
     }
@@ -28,7 +28,7 @@ class AuthenticationService
      * Returns false if there is no return value from getUser
      * @param string $username
      */
-    public function login(string $username)
+    public function login(string $username): mixed
     {
         $check = $this->userRepository->getUser($username);
 
@@ -42,7 +42,7 @@ class AuthenticationService
     /**
      * Returns the username value of the user session variable
      */
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser(): mixed
     {
         return $_SESSION['user'];
     }

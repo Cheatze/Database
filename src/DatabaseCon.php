@@ -44,7 +44,7 @@ class DatabaseCon
      * The code that makes this a singleton
      * @return DatabaseCon the singleton instance of this class
      */
-    public static function getInstance()
+    public static function getInstance(): DatabaseCon
     {
         if (!isset(self::$databaseCon)) {
             self::$databaseCon = new DatabaseCon();
@@ -58,7 +58,7 @@ class DatabaseCon
      * @param array $values The values for the query
      * @return bool|string
      */
-    public function insert(string $sql, array $values)
+    public function insert(string $sql, array $values): bool|string
     {
         $statment = $this->db->prepare($sql);
         $statment->execute($values);
@@ -72,7 +72,7 @@ class DatabaseCon
      * @param string $className
      * @return array|null returns an array as result or null if there were none found
      */
-    public function fetch(string $sql, array $where)
+    public function fetch(string $sql, array $where): array|null
     {
         $statement = $this->db->prepare($sql);
         $statement->execute($where);
@@ -90,7 +90,7 @@ class DatabaseCon
      * @param array $values the values for the query
      * @return bool
      */
-    public function update(string $sql, array $values)
+    public function update(string $sql, array $values): bool
     {
         $statement = $this->db->prepare($sql);
         return $statement->execute($values);
@@ -102,7 +102,7 @@ class DatabaseCon
      * @param array $values The values for the query
      * @return bool
      */
-    public function delete(string $sql, array $values)
+    public function delete(string $sql, array $values): bool
     {
         $statement = $this->db->prepare($sql);
         return $statement->execute($values);

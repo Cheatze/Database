@@ -35,7 +35,7 @@ class LoanController
      * @param mixed $data
      * @return void
      */
-    public function borrowItem($data)
+    public function borrowItem($data): void
     {
         $borrowItem = $this->getBorrowItem($data);
         $borrowItem->borrowItem();
@@ -48,7 +48,7 @@ class LoanController
      * @param mixed $data
      * @return void
      */
-    public function returnItem($data)
+    public function returnItem($data): void
     {
         $borrowItem = $this->getBorrowItem($data);
         $borrowItem->returnItem();

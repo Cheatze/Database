@@ -18,7 +18,7 @@ class BoardgameRepository
      * @param \Cheatze\Library\Boardgame $newboardgame
      * @return void
      */
-    public function addBoardgame(Boardgame $newboardgame)
+    public function addBoardgame(Boardgame $newboardgame): void
     {
         $keyValuePairs = $newboardgame->toArray();
         $this->queryBuilder->insert($keyValuePairs);
@@ -28,7 +28,7 @@ class BoardgameRepository
      * Gets all boardgames from the database
      * @return array|null
      */
-    public function getAllBoardgames()
+    public function getAllBoardgames(): array
     {
         return $boardgames = $this->queryBuilder->select(['*'])->get();
     }
@@ -37,7 +37,7 @@ class BoardgameRepository
      * Gets one boardgame from the database with a certain id
      * @param int $id
      */
-    public function getBoardgameById(int $id)
+    public function getBoardgameById(int $id): mixed
     {
         $boardgame = $this->queryBuilder->select(['*'])->where(['Id' => $id])->get();
 
@@ -49,12 +49,12 @@ class BoardgameRepository
      * @param int $id
      * @return void
      */
-    public function removeBoardgameById(int $id)
+    public function removeBoardgameById(int $id): void
     {
         $this->queryBuilder->remove($id);
     }
 
-    public function searchBoardgames(string $search)
+    public function searchBoardgames(string $search): array
     {
         return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Designer' => $search])->get();
     }

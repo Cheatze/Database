@@ -24,7 +24,6 @@ class QueryBuilder
     {
         $this->databaseCon = DatabaseCon::getInstance();
         $this->className = $className;
-        //$className = Cheatze\Library\Books
         $this->table = $table ?? strtolower($className) . 's';
     }
 

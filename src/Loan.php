@@ -1,15 +1,13 @@
 <?php
 namespace Cheatze\Library;
-use Cheatze\Library\Item;
 use DateTimeImmutable;
 
 class Loan
 {
     private int $id;
-    //private Borrowable $item; //Does this have to be an object? I haven't seen where it is used as such.
     private string $item;
-    private string $user; //also an object in the diagram
-    private int $term; //How long you can loan something
+    private string $user;
+    private int $term;
     private DateTimeImmutable $loanDate;
     private string $returnDate;
 
@@ -23,42 +21,42 @@ class Loan
         $this->id = $id;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getItem()
+    public function getItem(): string
     {
         return $this->item;
     }
 
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
 
-    public function getTerm()
+    public function getTerm(): int
     {
         return $this->term;
     }
 
-    public function getLoanDate()
+    public function getLoanDate(): DateTimeImmutable
     {
         return $this->loanDate;
     }
 
-    public function getLoanDateAsString()
+    public function getLoanDateAsString(): string
     {
         return $this->loanDate->format(DATE_ATOM);
     }
 
-    public function getReturnDate()
+    public function getReturnDate(): string
     {
         return $this->returnDate;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'item' => $this->getItem(),
@@ -74,7 +72,7 @@ class Loan
      * @param mixed $data
      * @return Loan
      */
-    public static function fromArray($data)
+    public static function fromArray($data): Loan
     {
         $data['LoanDate'] = new DateTimeImmutable($data['LoanDate']);
 

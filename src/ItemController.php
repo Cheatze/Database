@@ -17,7 +17,7 @@ class ItemController
      * Gets all items from the three database tables and includes the item list html
      * @return void
      */
-    public function showAllItems()
+    public function showAllItems(): void
     {
         $items = $this->itemService->getAllItems();
         include_once 'html/itemindex.html';
@@ -27,7 +27,7 @@ class ItemController
      * Includes the item search html
      * @return void
      */
-    public function itemSearchForm()
+    public function itemSearchForm(): void
     {
         include_once 'html/ItemSearch.html';
     }
@@ -37,7 +37,7 @@ class ItemController
      * @param mixed $data
      * @return void
      */
-    public function itemSearch($data)
+    public function itemSearch($data): void
     {
         $items = $this->itemService->searchAllItems($data);
         include_once 'html/itemindex.html';

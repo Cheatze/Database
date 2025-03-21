@@ -24,37 +24,37 @@ class Boardgame extends Item
         $this->maxPlayers = $maxPlayers;
     }
 
-    public function getDesigner()
+    public function getDesigner(): string
     {
         return $this->designer;
     }
 
-    public function getEan()
+    public function getEan(): int
     {
         return $this->ean;
     }
 
-    public function getPublisher()
+    public function getPublisher(): string
     {
         return $this->publisher;
     }
 
-    public function getReleaseDate()
+    public function getReleaseDate(): DateTimeImmutable
     {
         return $this->releaseDate;
     }
 
-    public function getReleaseDateAsString()
+    public function getReleaseDateAsString(): string
     {
         return $this->releaseDate->format(DATE_ATOM);
     }
 
-    public function getMinPlayers()
+    public function getMinPlayers(): int
     {
         return $this->minPlayers;
     }
 
-    public function getMaxPlayers()
+    public function getMaxPlayers(): int
     {
         return $this->maxPlayers;
     }
@@ -63,7 +63,7 @@ class Boardgame extends Item
      * Returns an array from the data of the Boardgame object
      * @return array{Designer: string, Ean: int, MaxPlayers: int, MinPlayers: int, Publisher: string, ReleaseDate: string, Title: string}
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'Title' => $this->getTitle(),
@@ -81,7 +81,7 @@ class Boardgame extends Item
      * @param mixed $data
      * @return Boardgame
      */
-    public static function fromArray($data)
+    public static function fromArray($data): Boardgame
     {
         $data['ReleaseDate'] = new DateTimeImmutable($data['ReleaseDate']);
         return new Boardgame(
@@ -96,7 +96,7 @@ class Boardgame extends Item
         );
     }
 
-    public function getOverviewText()
+    public function getOverviewText(): string
     {
         return sprintf(
             "Title: %s, published by: %s, designed by: %s",
@@ -110,7 +110,7 @@ class Boardgame extends Item
      * returns the get value for the links in the item index list
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return "boardgame/id=" . $this->getId();
     }

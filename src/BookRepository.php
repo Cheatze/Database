@@ -24,7 +24,7 @@ class BookRepository
      * @param Book $newBook
      * @return void
      */
-    public function add(Book $newBook)
+    public function add(Book $newBook): void
     {
         $keyValuePairs = $newBook->toArray();
 
@@ -36,7 +36,7 @@ class BookRepository
      * @param none
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $books = $this->queryBuilder->select(['*'])->get();
     }
@@ -46,7 +46,7 @@ class BookRepository
      * @param int $chosenAuthorId
      * @return array
      */
-    public function filterById(int $chosenAuthorId)
+    public function filterById(int $chosenAuthorId): array
     {
         $books = $this->queryBuilder->select(['*'])->get();
         return array_filter($books, function ($book) use ($chosenAuthorId) {
@@ -73,7 +73,7 @@ class BookRepository
      * @param int $id
      * @return void
      */
-    public function removeById(int $id)
+    public function removeById(int $id): void
     {
 
         $result = $this->queryBuilder->remove($id);
@@ -85,7 +85,7 @@ class BookRepository
      * @param string $search
      * @return array
      */
-    public function searchBooks(string $search)
+    public function searchBooks(string $search): array
     {
         return $this->queryBuilder->select(['*'])->where(['Title' => $search])->or(['Publisher' => $search, 'Author' => $search])->get();
     }

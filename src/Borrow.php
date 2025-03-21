@@ -11,7 +11,7 @@ trait Borrow
      * Removes a loan from the loans database table using the data of the current object
      * @return void
      */
-    public function returnItem()
+    public function returnItem(): void
     {
         $this->borrowService->returnItem($this);
     }
@@ -20,7 +20,7 @@ trait Borrow
      * Calls the borrowItem method on the borrowService and passes this object as an argument
      * @return void
      */
-    public function borrowItem()
+    public function borrowItem(): void
     {
         $this->borrowService->borrowItem($this);
     }
@@ -30,7 +30,7 @@ trait Borrow
      * @param string $typeId
      * @return string
      */
-    public function getAvailability()
+    public function getAvailability(): string
     {
         $typeId = $this->getId();
         $class = get_class($this);
@@ -45,13 +45,13 @@ trait Borrow
      * Calls the borrowService with those variables to check if the item is borrowed by the current user
      * @return string
      */
-    public function getCanReturn()
+    public function getCanReturn(): bool
     {
         $typeId = $this->getId();
         $class = get_class($this);
         $item = basename($class);
 
-        return $this->borrowService->getCompareUsers($typeId, $item);
+        return $this->borrowService->hasBeenBorrowedByUser($typeId, $item);
 
     }
 

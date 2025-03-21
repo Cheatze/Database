@@ -19,7 +19,7 @@ class MagazineController
      * Gets all magazines from the database and includes the magazine index html
      * @return void
      */
-    public function magazineIndex()
+    public function magazineIndex(): void
     {
         $magazines = $this->repository->getAllMagazines();
         include_once 'html/magazineindex.html';
@@ -30,7 +30,7 @@ class MagazineController
      * @param int $id
      * @return void
      */
-    public function showMagazine(int $id)
+    public function showMagazine(int $id): void
     {
         $magazine = $this->repository->returnMagazineById($id);
         include_once 'html/Magazine.html';
@@ -41,7 +41,7 @@ class MagazineController
      * @param array $id
      * @return void
      */
-    public function deleteMagazine(array $id)
+    public function deleteMagazine(array $id): void
     {
         $id = intval($id['id']);
 
@@ -53,7 +53,7 @@ class MagazineController
      * Includes the magazine html form
      * @return void
      */
-    public function magazineForm()
+    public function magazineForm(): void
     {
         include_once 'html/magazineform.html';
     }
@@ -63,7 +63,7 @@ class MagazineController
      * @param mixed $data
      * @return void
      */
-    public function addMagazine($data)
+    public function addMagazine($data): void
     {
         $title = $data['title'];
         $editor = $data['editor'];
